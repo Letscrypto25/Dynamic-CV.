@@ -1,0 +1,42 @@
+/* Base Styles */
+:root {
+  --primary: #6BB9B0;
+  --secondary: #4A6FA5;
+  --dark: #333;
+  --light: #F8F9FA;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Navigation */
+nav {
+  background: white;
+  padding: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  text-align: center;
+  padding: 5rem 0;
+}
+
+/* Add all other styles here */
