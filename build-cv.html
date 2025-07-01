@@ -658,7 +658,11 @@
     </section>
 
     <div class="container">
-        <form id="cvForm" class="cv-builder-container">
+        <!-- Updated form tag -->
+        <form id="cvForm" action="submit-cv.php" method="POST" enctype="multipart/form-data" class="cv-builder-container">
+            <!-- Added hidden input for template -->
+            <input type="hidden" name="template" id="selectedTemplate" value="professional">
+            
             <div class="builder-steps">
                 <!-- Step 1: Template Selection -->
                 <div class="step-header">
@@ -1008,6 +1012,8 @@
                 });
                 this.classList.add('selected');
                 selectedTemplate = this.dataset.template;
+                // Update the hidden input value
+                document.getElementById('selectedTemplate').value = selectedTemplate;
             });
         });
 
@@ -1153,50 +1159,25 @@
             document.getElementById('reviewSkills').textContent = document.getElementById('skills').value || 'No skills provided';
         }
 
-        // Form submission
-        document.getElementById('cvForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(this);
-            formData.append('template', selectedTemplate);
-            
-            // In a real implementation, this would send the data to your server
-            // For this demo, we'll simulate the process
-            
-            // Show success message
-            nextStep(8);
-            document.getElementById('successEmail').textContent = document.getElementById('email').value;
-            
-            // Here you would normally send the data to your server
-            console.log('CV information submitted:');
-            for (const pair of formData.entries()) {
-                console.log(pair[0] + ': ' + pair[1]);
-            }
-            
-            // Simulate sending an email
-            const email = document.getElementById('email').value;
-            const subject = 'New CV Request from ' + document.getElementById('fullName').value;
-            const body = 'A new CV request has been submitted through the website. Please check the admin panel for details.';
-            
-            // This would be replaced with actual server-side code
-            console.log(`Sending email to: info@dynamicresumes.co.za`);
-            console.log(`Subject: ${subject}`);
-            console.log(`Body: ${body}`);
-            
-            // Reset form after 5 seconds (for demo purposes)
-            setTimeout(() => {
-                this.reset();
-            }, 5000);
-        });
-
         // Initialize with one experience and education
         document.addEventListener('DOMContentLoaded', function() {
             // Add hamburger menu functionality
             document.querySelector('.hamburger').addEventListener('click', function() {
                 document.querySelector('.nav-links').classList.toggle('active');
             });
+            
+            // Handle form submission status
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+            
+            if (status === 'success') {
+                nextStep(8);
+                const email = urlParams.get('email') || "your email";
+                document.getElementById('successEmail').textContent = email;
+            } else if (status === 'error') {
+                alert('There was an error submitting your form. Please try again or contact us directly.');
+            }
         });
     </script>
 </body>
-      </html>
+                            </html>
