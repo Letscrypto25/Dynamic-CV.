@@ -1,188 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us | Dynamic CV</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
-  <style>
-    /* ALL CSS FROM INDEX.HTML GOES HERE */
-    /* IMPORTANT: Copy the entire <style> block from index.html */
-    
-    /* Additional About Page Styles */
-    .about-hero {
-      background: linear-gradient(rgba(45, 49, 54, 0.9), rgba(45, 49, 54, 0.9)), url('https://images.unsplash.com/photo-1497215842964-222b430dc094?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80');
-      background-size: cover;
-      background-position: center;
-      padding: 160px 0 100px;
-    }
-    
-    .about-content {
-      background: var(--medium-gray);
-      border-radius: 15px;
-      padding: 40px;
-      margin-top: 50px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      margin-top: 50px;
-    }
-    
-    .team-member {
-      background: var(--dark-gray);
-      border-radius: 15px;
-      padding: 30px;
-      text-align: center;
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .team-member:hover {
-      transform: translateY(-10px);
-      box-shadow: var(--shadow-hover);
-    }
-    
-    .team-member img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin: 0 auto 20px;
-      border: 3px solid var(--accent-teal);
-    }
-    
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin: 50px 0;
-    }
-    
-    .stat-card {
-      background: var(--dark-gray);
-      border-radius: 15px;
-      padding: 25px;
-      text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .stat-number {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--accent-teal);
-      margin-bottom: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Dynamic CV</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <nav>
-    <div class="container nav-container">
-      <a href="index.html" class="logo">
-        <i class="fas fa-file-alt"></i>Dynamic<span>CV</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html" class="active">About</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-      <button class="hamburger">☰</button>
-    </div>
-  </nav>
-
-  <section class="hero about-hero">
-    <div class="container">
-      <div class="hero-content">
-        <h1>About Dynamic CV</h1>
-        <p class="tagline">Crafting success stories since 2023</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="about-section">
-    <div class="container">
-      <div class="about-content">
-        <h2>Our Story</h2>
-        <p>Founded in 2023, Dynamic CV was born from a passion for helping South African professionals unlock their career potential. We noticed that talented individuals were struggling to showcase their skills effectively in a competitive job market.</p>
-        
-        <p>Today, we've helped over 2,000 clients land their dream jobs with professionally crafted CVs that highlight their unique strengths and value proposition. Our team of certified career experts understands what South African employers are looking for.</p>
-        
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-number">2,500+</div>
-            <p>CVs Created</p>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number">98%</div>
-            <p>Client Satisfaction</p>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number">15+</div>
-            <p>Industry Experts</p>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number">3,000+</div>
-            <p>Interviews Secured</p>
-          </div>
+    <nav>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-file-alt"></i>Dynamic<span>CV</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="hamburger">☰</button>
         </div>
-        
-        <h2>Meet Our Team</h2>
-        <div class="team-grid">
-          <div class="team-member">
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Doe">
-            <h3>John Doe</h3>
-            <p>Lead Resume Writer</p>
-            <p>10+ years experience in HR recruitment</p>
-          </div>
-          <div class="team-member">
-            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jane Smith">
-            <h3>Jane Smith</h3>
-            <p>Career Coach</p>
-            <p>Certified Career Development Practitioner</p>
-          </div>
-          <div class="team-member">
-            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="David Brown">
-            <h3>David Brown</h3>
-            <p>CV Strategist</p>
-            <p>Specialist in ATS optimization</p>
-          </div>
+    </nav>
+
+    <section class="hero about-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>About Dynamic CV</h1>
+                <p class="tagline">Crafting success stories since 2023</p>
+            </div>
         </div>
-        
-        <h2>Our Mission</h2>
-        <p>We're committed to transforming how job seekers present themselves to employers. Through personalized, industry-specific CVs and career coaching, we empower professionals to take control of their career journey and achieve their professional goals.</p>
-      </div>
+    </section>
+
+    <section class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <h2>Our Story</h2>
+                <p>Founded in 2023, Dynamic CV was born from a passion for helping South African professionals unlock their career potential. We noticed that talented individuals were struggling to showcase their skills effectively in a competitive job market.</p>
+                
+                <p>Today, we've helped over 2,000 clients land their dream jobs with professionally crafted CVs that highlight their unique strengths and value proposition. Our team of certified career experts understands what South African employers are looking for.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">2,500+</div>
+                        <p>CVs Created</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">98%</div>
+                        <p>Client Satisfaction</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">15+</div>
+                        <p>Industry Experts</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">3,000+</div>
+                        <p>Interviews Secured</p>
+                    </div>
+                </div>
+                
+                <h2>Meet Our Team</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Doe">
+                        <h3>John Doe</h3>
+                        <p>Lead Resume Writer</p>
+                        <p>10+ years experience in HR recruitment</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jane Smith">
+                        <h3>Jane Smith</h3>
+                        <p>Career Coach</p>
+                        <p>Certified Career Development Practitioner</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="David Brown">
+                        <h3>David Brown</h3>
+                        <p>CV Strategist</p>
+                        <p>Specialist in ATS optimization</p>
+                    </div>
+                </div>
+                
+                <h2>Our Mission</h2>
+                <p>We're committed to transforming how job seekers present themselves to employers. Through personalized, industry-specific CVs and career coaching, we empower professionals to take control of their career journey and achieve their professional goals.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Buttons -->
+    <div class="contact-buttons">
+        <a href="https://wa.me/27797885776" class="contact-btn whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+            <span class="contact-label">Chat on WhatsApp</span>
+        </a>
+        <a href="mailto:erika.dynamiccv@gmail.com" class="contact-btn email-btn">
+            <i class="fas fa-envelope"></i>
+            <span class="contact-label">Send Email</span>
+        </a>
+        <a href="https://www.facebook.com/dynamiccv?mibextid=rS40aB7S9Ucbxw6v" class="contact-btn facebook-btn">
+            <i class="fab fa-facebook-f"></i>
+            <span class="contact-label">Visit Facebook</span>
+        </a>
     </div>
-  </section>
 
-  <!-- Contact Buttons -->
-  <div class="contact-buttons">
-    <a href="https://wa.me/27797885776" class="contact-btn whatsapp-btn">
-      <i class="fab fa-whatsapp"></i>
-      <span class="contact-label">Chat on WhatsApp</span>
-    </a>
-    <a href="mailto:erika.dynamiccv@gmail.com" class="contact-btn email-btn">
-      <i class="fas fa-envelope"></i>
-      <span class="contact-label">Send Email</span>
-    </a>
-    <a href="https://www.facebook.com/dynamiccv?mibextid=rS40aB7S9Ucbxw6v" class="contact-btn facebook-btn">
-      <i class="fab fa-facebook-f"></i>
-      <span class="contact-label">Visit Facebook</span>
-    </a>
-  </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>Dynamic CV</h4>
+                    <p>Transforming careers through exceptional personal branding since 2015.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/dynamiccv?mibextid=rS40aB7S9Ucbxw6v"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                    <p class="facebook-stats">
+                        <i class="fas fa-thumbs-up"></i> 2k+ Likes & Followers
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="services.html">CV Writing</a></li>
+                        <li><a href="services.html">Cover Letters</a></li>
+                        <li><a href="services.html">Portfolio Design</a></li>
+                        <li><a href="services.html">Career Coaching</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#">Our Process</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Guarantee</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Dynamic CV. All rights reserved. | Johannesburg, South Africa
+            </div>
+        </div>
+    </footer>
 
-  <!-- Footer -->
-  <footer>
-    <!-- COPY FOOTER FROM INDEX.HTML HERE -->
-  </footer>
-
-  <script>
-    // COPY ALL JAVASCRIPT FROM INDEX.HTML HERE
-  </script>
+    <script src="js/script.js"></script>
+    <script>
+        // Additional script for team member animations
+        const teamMembers = document.querySelectorAll('.team-member');
+        teamMembers.forEach((member, index) => {
+            member.style.opacity = '0';
+            member.style.transform = 'translateY(20px)';
+            member.style.transition = 'all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
+            setTimeout(() => {
+                member.style.opacity = '1';
+                member.style.transform = 'translateY(0)';
+            }, 300 + (index * 200));
+        });
+    </script>
 </body>
 </html>
