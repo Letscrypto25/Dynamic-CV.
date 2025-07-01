@@ -6,7 +6,715 @@
     <title>Dynamic CV | Premium Resume Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root {
+            --dark-gray: #2d3136;
+            --medium-gray: #3a3e45;
+            --light-gray: #4a4f58;
+            --text-light: #e0e0e0;
+            --text-medium: #b0b0b0;
+            --accent-teal: #5aa79e;
+            --accent-blue: #4a6fa5;
+            --white: #ffffff;
+            --success-green: #48bb78;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background-color: var(--dark-gray);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.2;
+            color: var(--white);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent-teal);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .btn:hover {
+            background: #4a958c;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(90, 167, 158, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(90, 167, 158, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(90, 167, 158, 0); }
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(45, 49, 54, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            padding: 20px 0;
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav.scrolled {
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--accent-teal);
+        }
+
+        .logo i {
+            margin-right: 8px;
+            color: var(--accent-teal);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 35px;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.05rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-teal);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover:after,
+        .nav-links a.active:after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-teal);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--white);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 160px;
+            padding-bottom: 100px;
+            background: linear-gradient(rgba(45, 49, 54, 0.9), rgba(45, 49, 54, 0.9)), url('https://images.unsplash.com/photo-1497215842964-222b430dc094?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            color: var(--white);
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            color: var(--accent-teal);
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .value-prop {
+            background: rgba(58, 62, 69, 0.7);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 40px;
+            max-width: 550px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .value-prop p {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .value-prop p i {
+            color: var(--accent-teal);
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+
+        /* Services */
+        .services {
+            position: relative;
+            background: var(--medium-gray);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--accent-teal);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--dark-gray);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeUp 0.6s forwards;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes fadeUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-icon {
+            height: 150px;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-teal);
+            font-size: 3.5rem;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--white);
+        }
+
+        .card p {
+            color: var(--text-medium);
+            margin-bottom: 20px;
+        }
+
+        .card .btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: var(--dark-gray);
+            position: relative;
+        }
+
+        .pricing::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(90, 167, 158, 0.03) 0%, rgba(74, 111, 165, 0.03) 100%);
+            z-index: -1;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--medium-gray);
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .pricing-card.popular {
+            border: 2px solid var(--accent-teal);
+            transform: scale(1.05);
+            z-index: 2;
+        }
+
+        .pricing-card.popular:hover {
+            transform: scale(1.08) translateY(-5px);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--white);
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-teal);
+            margin: 20px 0;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--text-medium);
+            font-weight: normal;
+            display: block;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            margin-bottom: 35px;
+            text-align: left;
+            padding: 0 20px;
+        }
+
+        .pricing-card ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            color: var(--text-light);
+        }
+
+        .pricing-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-card ul li i {
+            color: var(--accent-teal);
+            margin-right: 10px;
+        }
+
+        .popular-tag {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-teal);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .amendment-policy {
+            background: var(--medium-gray);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 50px;
+            max-width: 800px;
+            margin: 50px auto 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .amendment-policy h3 {
+            font-size: 1.5rem;
+            color: var(--accent-teal);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .amendment-policy p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .amendment-feature {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .amendment-feature i {
+            color: var(--accent-teal);
+            font-size: 1.5rem;
+            margin-right: 15px;
+            min-width: 30px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-gray);
+            color: var(--text-light);
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-col h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            color: var(--white);
+        }
+
+        .footer-col h4:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 3px;
+            background: var(--accent-teal);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-medium);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-teal);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--accent-teal);
+            transform: translateY(-3px);
+            color: var(--white);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-medium);
+            font-size: 0.9rem;
+        }
+
+        /* Contact Buttons */
+        .contact-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .contact-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: var(--shadow);
+            z-index: 100;
+            transition: var(--transition);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+        }
+
+        .whatsapp-btn:hover {
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.6);
+        }
+
+        .email-btn {
+            background: #D44638;
+            color: white;
+        }
+
+        .email-btn:hover {
+            box-shadow: 0 8px 20px rgba(212, 70, 56, 0.6);
+        }
+
+        .facebook-btn {
+            background: #3b5998;
+            color: white;
+        }
+
+        .facebook-btn:hover {
+            box-shadow: 0 8px 20px rgba(59, 89, 152, 0.6);
+        }
+
+        .contact-label {
+            position: absolute;
+            right: 70px;
+            background: var(--accent-teal);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .contact-btn:hover .contact-label {
+            opacity: 1;
+            right: 75px;
+        }
+
+        .facebook-stats {
+            margin-top: 10px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            section {
+                padding: 80px 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--dark-gray);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 50px;
+                transition: var(--transition);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 20px 0;
+            }
+            
+            .hero {
+                padding-top: 140px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .tagline {
+                font-size: 1.3rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .contact-buttons {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .contact-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .value-prop {
+                padding: 20px;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -93,6 +801,87 @@
         </div>
     </section>
 
+    <!-- Pricing Section -->
+    <section class="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Transparent Pricing</h2>
+                <p>Premium CV services at competitive prices</p>
+            </div>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>School Leaver CV</h3>
+                    <div class="price">R150</div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Perfect for recent graduates</li>
+                        <li><i class="fas fa-check"></i> Max 2 pages</li>
+                        <li><i class="fas fa-check"></i> Professionally formatted</li>
+                        <li><i class="fas fa-check"></i> Industry-specific design</li>
+                        <li><i class="fas fa-check"></i> Entry-level focused content</li>
+                    </ul>
+                    <button class="btn">Get Started</button>
+                </div>
+                
+                <div class="pricing-card popular">
+                    <div class="popular-tag">MOST POPULAR</div>
+                    <h3>Professional CV</h3>
+                    <div class="price">R250</div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> For experienced professionals</li>
+                        <li><i class="fas fa-check"></i> Three-page format</li>
+                        <li><i class="fas fa-check"></i> Career highlights section</li>
+                        <li><i class="fas fa-check"></i> Skills & achievements showcase</li>
+                        <li><i class="fas fa-check"></i> Customized for your industry</li>
+                    </ul>
+                    <button class="btn">Best Value</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Executive CV</h3>
+                    <div class="price">R350</div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Comprehensive CV package</li>
+                        <li><i class="fas fa-check"></i> Four+ pages</li>
+                        <li><i class="fas fa-check"></i> Leadership experience showcase</li>
+                        <li><i class="fas fa-check"></i> Strategic accomplishments</li>
+                        <li><i class="fas fa-check"></i> Board-level presentation</li>
+                    </ul>
+                    <button class="btn">Get Premium</button>
+                </div>
+            </div>
+            
+            <div class="amendment-policy">
+                <h3>Our Amendment Policy</h3>
+                <p>We stand by our work and offer flexible amendment options</p>
+                
+                <div class="amendment-feature">
+                    <i class="fas fa-calendar-check"></i>
+                    <div>
+                        <h4>14-Day Free Amendments</h4>
+                        <p>Request any changes within 14 days of receiving your CV at no additional cost</p>
+                    </div>
+                </div>
+                
+                <div class="amendment-feature">
+                    <i class="fas fa-edit"></i>
+                    <div>
+                        <h4>Subsequent Amendments: R15 each</h4>
+                        <p>After the initial 14-day period, amendments are available at R15 per change</p>
+                    </div>
+                </div>
+                
+                <div class="amendment-feature">
+                    <i class="fas fa-file-pdf"></i>
+                    <div>
+                        <h4>Document Bundle: R100</h4>
+                        <p>Get a professionally compiled PDF with all your additional documents (ID, Qualifications, Passport, etc.)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Buttons -->
     <div class="contact-buttons">
         <a href="https://wa.me/27797885776" class="contact-btn whatsapp-btn">
@@ -157,6 +946,51 @@
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.hamburger').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Fade-in animations on scroll
+        const fadeElements = document.querySelectorAll('.card, .pricing-card');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        fadeElements.forEach(el => observer.observe(el));
+
+        // Contact button animations
+        const contactButtons = document.querySelectorAll('.contact-btn');
+        contactButtons.forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                const label = btn.querySelector('.contact-label');
+                label.style.opacity = '1';
+                label.style.right = '75px';
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                const label = btn.querySelector('.contact-label');
+                label.style.opacity = '0';
+                label.style.right = '70px';
+            });
+        });
+    </script>
 </body>
-  </html>
+    </html>
