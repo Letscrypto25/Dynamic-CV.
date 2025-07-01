@@ -1,265 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us | Dynamic CV</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
-  <style>
-    /* ALL CSS FROM INDEX.HTML GOES HERE */
-    
-    /* Additional Contact Styles */
-    .contact-hero {
-      background: linear-gradient(rgba(45, 49, 54, 0.9), rgba(45, 49, 54, 0.9)), url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80');
-      background-size: cover;
-      background-position: center;
-      padding: 160px 0 100px;
-    }
-    
-    .contact-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 40px;
-      margin-top: 50px;
-    }
-    
-    .contact-info {
-      background: var(--medium-gray);
-      border-radius: 15px;
-      padding: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .contact-method {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 30px;
-    }
-    
-    .contact-icon {
-      background: var(--accent-teal);
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 20px;
-      flex-shrink: 0;
-    }
-    
-    .contact-form {
-      background: var(--medium-gray);
-      border-radius: 15px;
-      padding: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .form-group {
-      margin-bottom: 25px;
-    }
-    
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--text-light);
-      font-weight: 500;
-    }
-    
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      width: 100%;
-      padding: 14px;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: var(--dark-gray);
-      color: var(--text-light);
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-    }
-    
-    .form-group textarea {
-      height: 150px;
-      resize: vertical;
-    }
-    
-    .hours-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    
-    .hours-table td {
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .hours-table tr:last-child td {
-      border-bottom: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Dynamic CV</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <nav>
-    <div class="container nav-container">
-      <a href="index.html" class="logo">
-        <i class="fas fa-file-alt"></i>Dynamic<span>CV</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="contact.html" class="active">Contact</a></li>
-      </ul>
-      <button class="hamburger">☰</button>
-    </div>
-  </nav>
-
-  <section class="hero contact-hero">
-    <div class="container">
-      <div class="hero-content">
-        <h1>Contact Dynamic CV</h1>
-        <p class="tagline">We're here to help transform your career</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="contact-section">
-    <div class="container">
-      <div class="contact-container">
-        <div class="contact-info">
-          <h2>Get in Touch</h2>
-          <div class="contact-method">
-            <div class="contact-icon">
-              <i class="fas fa-map-marker-alt"></i>
-            </div>
-            <div>
-              <h3>Our Location</h3>
-              <p>123 Career Street<br>Johannesburg, 2000<br>South Africa</p>
-            </div>
-          </div>
-          
-          <div class="contact-method">
-            <div class="contact-icon">
-              <i class="fas fa-phone-alt"></i>
-            </div>
-            <div>
-              <h3>Phone & WhatsApp</h3>
-              <p>+27 (0) 79 788 5776</p>
-              <p>Mon-Fri: 8am - 5pm</p>
-            </div>
-          </div>
-          
-          <div class="contact-method">
-            <div class="contact-icon">
-              <i class="fas fa-envelope"></i>
-            </div>
-            <div>
-              <h3>Email Us</h3>
-              <p>erika.dynamiccv@gmail.com</p>
-              <p>Response time: 24 hours</p>
-            </div>
-          </div>
-          
-          <div class="contact-method">
-            <div class="contact-icon">
-              <i class="fas fa-clock"></i>
-            </div>
-            <div>
-              <h3>Working Hours</h3>
-              <table class="hours-table">
-                <tr>
-                  <td>Monday - Friday</td>
-                  <td>8:00 AM - 5:00 PM</td>
-                </tr>
-                <tr>
-                  <td>Saturday</td>
-                  <td>9:00 AM - 1:00 PM</td>
-                </tr>
-                <tr>
-                  <td>Sunday</td>
-                  <td>Closed</td>
-                </tr>
-              </table>
-            </div>
-          </div>
+    <nav>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-file-alt"></i>Dynamic<span>CV</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+            <button class="hamburger">☰</button>
         </div>
-        
-        <div class="contact-form">
-          <h2>Send a Message</h2>
-          <form id="contactForm">
-            <div class="form-group">
-              <label for="name">Full Name</label>
-              <input type="text" id="name" required>
+    </nav>
+
+    <section class="hero contact-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Contact Dynamic CV</h1>
+                <p class="tagline">We're here to help transform your career</p>
             </div>
-            
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="phone">Phone Number</label>
-              <input type="tel" id="phone">
-            </div>
-            
-            <div class="form-group">
-              <label for="service">Service Interested In</label>
-              <select id="service">
-                <option value="">Select a service</option>
-                <option value="cv">CV Writing</option>
-                <option value="cover">Cover Letter</option>
-                <option value="coaching">Career Coaching</option>
-                <option value="portfolio">Portfolio Design</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            
-            <div class="form-group">
-              <label for="message">Your Message</label>
-              <textarea id="message" required></textarea>
-            </div>
-            
-            <button type="submit" class="btn">Send Message</button>
-          </form>
         </div>
-      </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>Get in Touch</h2>
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h3>Our Location</h3>
+                            <p>123 Career Street<br>Johannesburg, 2000<br>South Africa</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <h3>Phone & WhatsApp</h3>
+                            <p>+27 (0) 79 788 5776</p>
+                            <p>Mon-Fri: 8am - 5pm</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3>Email Us</h3>
+                            <p>erika.dynamiccv@gmail.com</p>
+                            <p>Response time: 24 hours</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h3>Working Hours</h3>
+                            <table class="hours-table">
+                                <tr>
+                                    <td>Monday - Friday</td>
+                                    <td>8:00 AM - 5:00 PM</td>
+                                </tr>
+                                <tr>
+                                    <td>Saturday</td>
+                                    <td>9:00 AM - 1:00 PM</td>
+                                </tr>
+                                <tr>
+                                    <td>Sunday</td>
+                                    <td>Closed</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h2>Send a Message</h2>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="service">Service Interested In</label>
+                            <select id="service">
+                                <option value="">Select a service</option>
+                                <option value="cv">CV Writing</option>
+                                <option value="cover">Cover Letter</option>
+                                <option value="coaching">Career Coaching</option>
+                                <option value="portfolio">Portfolio Design</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Buttons -->
+    <div class="contact-buttons">
+        <a href="https://wa.me/27797885776" class="contact-btn whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+            <span class="contact-label">Chat on WhatsApp</span>
+        </a>
+        <a href="mailto:erika.dynamiccv@gmail.com" class="contact-btn email-btn">
+            <i class="fas fa-envelope"></i>
+            <span class="contact-label">Send Email</span>
+        </a>
+        <a href="https://www.facebook.com/dynamiccv?mibextid=rS40aB7S9Ucbxw6v" class="contact-btn facebook-btn">
+            <i class="fab fa-facebook-f"></i>
+            <span class="contact-label">Visit Facebook</span>
+        </a>
     </div>
-  </section>
 
-  <!-- Contact Buttons -->
-  <div class="contact-buttons">
-    <a href="https://wa.me/27797885776" class="contact-btn whatsapp-btn">
-      <i class="fab fa-whatsapp"></i>
-      <span class="contact-label">Chat on WhatsApp</span>
-    </a>
-    <a href="mailto:erika.dynamiccv@gmail.com" class="contact-btn email-btn">
-      <i class="fas fa-envelope"></i>
-      <span class="contact-label">Send Email</span>
-    </a>
-    <a href="https://www.facebook.com/dynamiccv?mibextid=rS40aB7S9Ucbxw6v" class="contact-btn facebook-btn">
-      <i class="fab fa-facebook-f"></i>
-      <span class="contact-label">Visit Facebook</span>
-    </a>
-  </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>Dynamic CV</h4>
+                    <p>Transforming careers through exceptional personal branding since 2015.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/dynamiccv?mibextid=rS40aB7S9Ucbxw6v"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                    <p class="facebook-stats">
+                        <i class="fas fa-thumbs-up"></i> 2k+ Likes & Followers
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="services.html">CV Writing</a></li>
+                        <li><a href="services.html">Cover Letters</a></li>
+                        <li><a href="services.html">Portfolio Design</a></li>
+                        <li><a href="services.html">Career Coaching</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#">Our Process</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Guarantee</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Dynamic CV. All rights reserved. | Johannesburg, South Africa
+            </div>
+        </div>
+    </footer>
 
-  <!-- Footer -->
-  <footer>
-    <!-- COPY FOOTER FROM INDEX.HTML HERE -->
-  </footer>
-
-  <script>
-    // COPY ALL JAVASCRIPT FROM INDEX.HTML HERE
-    
-    // Additional Contact Form Validation
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      // Form validation logic
-      alert('Thank you for your message! We will contact you shortly.');
-      this.reset();
-    });
-  </script>
+    <script src="js/script.js"></script>
+    <script>
+        // Contact Form Validation
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simple validation
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            if (name && email && message) {
+                // Form is valid - show success message
+                alert('Thank you for your message, ' + name + '! We will contact you shortly at ' + email);
+                this.reset();
+            } else {
+                alert('Please fill in all required fields');
+            }
+        });
+    </script>
 </body>
 </html>
