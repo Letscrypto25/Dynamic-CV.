@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $to = "your-email@example.com"; // Replace with your email
+    $to = "erika.dynamiccv@gmail.com"; // Replace with your email
     $subject = "New CV Request from " . $_POST['fullName'];
     
     // Collect form data
