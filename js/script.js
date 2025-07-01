@@ -70,6 +70,18 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // New animations
     animateOnScroll();
+    
+    // Add specific animation for service details
+    const serviceDetails = document.querySelectorAll('.service-detail');
+    serviceDetails.forEach((detail, index) => {
+        detail.style.opacity = '0';
+        detail.style.transform = 'translateY(20px)';
+        detail.style.transition = 'all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
+        setTimeout(() => {
+            detail.style.opacity = '1';
+            detail.style.transform = 'translateY(0)';
+        }, 300 + (index * 200));
+    });
 });
 
 // Contact button animations
@@ -87,48 +99,3 @@ contactButtons.forEach(btn => {
         label.style.right = '70px';
     });
 });
-
-// ... existing code ...
-
-// Animate elements on scroll
-const animateOnScroll = () => {
-    const elements = document.querySelectorAll('.team-member, .stat-card, .service-detail, .process-step');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-    
-    elements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
-        observer.observe(el);
-    });
-};
-
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    // Existing code from your script.js
-    
-    // New animations
-    animateOnScroll();
-    
-    // Add specific animation for service details
-    const serviceDetails = document.querySelectorAll('.service-detail');
-    serviceDetails.forEach((detail, index) => {
-        detail.style.opacity = '0';
-        detail.style.transform = 'translateY(20px)';
-        detail.style.transition = 'all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
-        setTimeout(() => {
-            detail.style.opacity = '1';
-            detail.style.transform = 'translateY(0)';
-        }, 300 + (index * 200));
-    });
-});
-
