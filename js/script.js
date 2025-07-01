@@ -99,3 +99,31 @@ contactButtons.forEach(btn => {
         label.style.right = '70px';
     });
 });
+
+
+// Template selection
+let selectedTemplate = 'professional';
+document.querySelectorAll('.template-card').forEach(card => {
+    card.addEventListener('click', function() {
+        document.querySelectorAll('.template-card').forEach(c => {
+            c.classList.remove('selected');
+        });
+        this.classList.add('selected');
+        selectedTemplate = this.dataset.template;
+        document.getElementById('selectedTemplate').value = selectedTemplate;
+    });
+});
+
+// Add to the existing script
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle form submission status
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('status');
+    
+    if (status === 'success') {
+        nextStep(8);
+        document.getElementById('successEmail').textContent = document.getElementById('email').value || "your email";
+    } else if (status === 'error') {
+        alert('There was an error submitting your form. Please try again or contact us directly.');
+    }
+});
