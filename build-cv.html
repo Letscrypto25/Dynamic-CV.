@@ -988,7 +988,7 @@
             <i class="fab fa-whatsapp"></i>
             <span class="contact-label">Chat on WhatsApp</span>
         </a>
-        <a href="mailto:info@dynamicresumes.co.za" class="contact-btn email-btn">
+        <a href="mailto:erika.dynamiccv@gmail.com" class="contact-btn email-btn">
             <i class="fas fa-envelope"></i>
             <span class="contact-label">Send Email</span>
         </a>
@@ -1037,7 +1037,7 @@
                 </div>
             </div>
             <div class="copyright">
-                &copy; 2024 Dynamic-CV. All rights reserved. | Cape Town, South Africa
+                &copy; 2024 Dynamic-CV. All rights reserved. | Eastern Cape, South Africa
             </div>
         </div>
     </footer>
@@ -1284,11 +1284,45 @@
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
                 submitBtn.disabled = true;
                 
+                // Get file name if uploaded
+                let cvFileName = 'None';
+                const fileInput = document.getElementById('cvUpload');
+                if (fileInput.files.length > 0) {
+                    cvFileName = fileInput.files[0].name;
+                }
+                
+                // Prepare template parameters
+                const templateParams = {
+                    template: document.getElementById('selectedTemplate').value,
+                    fullName: document.getElementById('fullName').value,
+                    jobTitle: document.getElementById('jobTitle').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value || 'Not provided',
+                    location: document.getElementById('location').value || 'Not provided',
+                    summary: document.getElementById('summary').value || 'Not provided',
+                    skills: document.getElementById('skills').value || 'Not provided',
+                    cvUpload: cvFileName,
+                    expTitles: Array.from(document.getElementsByName('expTitle[]')).map(i => i.value),
+                    expCompanies: Array.from(document.getElementsByName('expCompany[]')).map(i => i.value),
+                    expLocations: Array.from(document.getElementsByName('expLocation[]')).map(i => i.value),
+                    expDates: Array.from(document.getElementsByName('expDate[]')).map(i => i.value),
+                    expDescriptions: Array.from(document.getElementsByName('expDescription[]')).map(i => i.value),
+                    eduDegrees: Array.from(document.getElementsByName('eduDegree[]')).map(i => i.value),
+                    eduInstitutions: Array.from(document.getElementsByName('eduInstitution[]')).map(i => i.value),
+                    eduLocations: Array.from(document.getElementsByName('eduLocation[]')).map(i => i.value),
+                    eduDates: Array.from(document.getElementsByName('eduDate[]')).map(i => i.value),
+                    date: new Date().toLocaleDateString('en-GB', { 
+                        day: '2-digit', 
+                        month: 'short', 
+                        year: 'numeric'
+                    })
+                };
+                
                 // Send form using EmailJS
-                emailjs.sendForm(
-                    'service_8iopnw7',  // Your EmailJS Service ID
-                    'template_k4l9m2s', // Your EmailJS Template ID
-                    document.getElementById('cvForm') // Form element
+                emailjs.send(
+                    'service_8iopnw7',  // Service ID
+                    'template_nfswm2m', // Template ID
+                    templateParams
                 )
                 .then(function() {
                     // Success handling
@@ -1305,4 +1339,4 @@
         });
     </script>
 </body>
-                </html>
+    </html>
