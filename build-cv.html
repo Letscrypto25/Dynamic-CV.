@@ -1265,8 +1265,7 @@
                 nextStep(step + 1);
             }
         }
-
-        // Form submission
+// Form submission
 document.getElementById('submitBtn').addEventListener('click', function () {
     const submitBtn = document.getElementById('submitBtn');
     const requiredFields = document.querySelectorAll('#step7 input[required], #step7 textarea[required]');
@@ -1287,17 +1286,9 @@ document.getElementById('submitBtn').addEventListener('click', function () {
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-    // 🔥 This actually submits your form to JSEmail
+    // ✅ This sends the form to JSEmail
     document.getElementById('cvForm').submit();
-}); 
-                // Show success message
-                nextStep(8);
-                
-                // Set the email in success message
-                const email = document.getElementById('email').value || "your email";
-                document.getElementById('successEmail').textContent = email;
-            }, 1500);
-        });
+});
 
         // Initialize with one experience and education
         document.addEventListener('DOMContentLoaded', function() {
