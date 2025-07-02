@@ -716,7 +716,8 @@
     <div class="container">
         <form id="cvForm" class="cv-builder-container" action="https://jsmail.io/s/service_8iopnw7" method="POST">
             <input type="hidden" name="template" id="selectedTemplate" value="professional">
-            
+            <form id="cvForm" class="cv-builder-container" action="https://jsmail.io/s/service_8iopnw7" method="POST" redirect="thank-you.html">
+    <input type="hidden" name="template" id="selectedTemplate" value="professional">
             <div class="builder-steps">
                 <!-- Step 1: Template Selection -->
                 <div class="step-header">
@@ -1286,29 +1287,9 @@ document.getElementById('submitBtn').addEventListener('click', function () {
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-    // ✅ This sends the form to JSEmail
+    // ✅ Real JSEmail submit
     document.getElementById('cvForm').submit();
 });
-
-        // Initialize with one experience and education
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add hamburger menu functionality
-            document.querySelector('.hamburger').addEventListener('click', function() {
-                document.querySelector('.nav-links').classList.toggle('active');
-            });
-            
-            // Handle form submission status
-            const urlParams = new URLSearchParams(window.location.search);
-            const status = urlParams.get('status');
-            
-            if (status === 'success') {
-                nextStep(8);
-                const email = urlParams.get('email') || "your email";
-                document.getElementById('successEmail').textContent = email;
-            } else if (status === 'error') {
-                alert('There was an error submitting your form. Please try again or contact us directly.');
-            }
-        });
     </script>
 </body>
                             </html>
