@@ -6,6 +6,11 @@
     <title>Build Your CV | Dynamic-CV</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS with your public key
+        emailjs.init('AMaljHy8rgaB20-FA');
+    </script>
     <style>
         :root {
             --dark-gray: #2d3136;
@@ -719,10 +724,9 @@
     </section>
 
     <div class="container">
-        <!-- Fixed JSMail Form -->
-        <form id="cvForm" class="cv-builder-container" action="https://jsmail.io/s/service_8iopnw7" method="POST">
+        <!-- Updated Form for EmailJS -->
+        <form id="cvForm" class="cv-builder-container">
             <input type="hidden" name="template" id="selectedTemplate" value="professional">
-            <input type="hidden" name="redirect" value="thank-you.html">
             
             <div class="builder-steps">
                 <!-- Step 1: Template Selection -->
@@ -961,7 +965,7 @@
                     
                     <div class="step-navigation">
                         <button type="button" class="btn btn-secondary" onclick="prevStep(7)">Back</button>
-                        <button type="submit" class="btn" id="submitBtn">
+                        <button type="button" class="btn" id="submitBtn">
                             <i class="fas fa-paper-plane"></i> Submit Information
                         </button>
                     </div>
@@ -1273,17 +1277,32 @@
                 document.querySelector('.nav-links').classList.toggle('active');
             });
             
-            // Handle form submission status
-            const urlParams = new URLSearchParams(window.location.search);
-            const status = urlParams.get('status');
-            
-            if (status === 'success') {
-                // Show success message if redirected
-                alert('Your form was submitted successfully!');
-            } else if (status === 'error') {
-                alert('There was an error submitting your form. Please try again or contact us directly.');
-            }
+            // Handle form submission with EmailJS
+            document.getElementById('submitBtn').addEventListener('click', function() {
+                // Show loading indicator
+                const submitBtn = this;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                submitBtn.disabled = true;
+                
+                // Send form using EmailJS
+                emailjs.sendForm(
+                    'service_8iopnw7',  // Your EmailJS Service ID
+                    'template_k4l9m2s', // Your EmailJS Template ID
+                    document.getElementById('cvForm') // Form element
+                )
+                .then(function() {
+                    // Success handling
+                    alert('Your CV details have been submitted successfully!');
+                    document.getElementById('cvForm').reset();
+                    window.location.href = 'thank-you.html';
+                }, function(error) {
+                    // Error handling
+                    alert('Failed to send: ' + error.text);
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Information';
+                    submitBtn.disabled = false;
+                });
+            });
         });
     </script>
 </body>
-                          </html>
+                </html>
