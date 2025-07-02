@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thank You | Dynamic Resumes</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dark-gray: #2d3136;
+      --medium-gray: #3a3e45;
+      --light-gray: #4a4f58;
+      --text-light: #e0e0e0;
+      --text-medium: #b0b0b0;
+      --accent-teal: #5aa79e;
+      --accent-blue: #4a6fa5;
+      --white: #ffffff;
+      --success-green: #48bb78;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--text-light);
+      background-color: var(--dark-gray);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.2;
+      color: var(--white);
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent-teal);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .btn:hover {
+      background: #4a958c;
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* Navigation Styles */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(45, 49, 54, 0.95);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      padding: 20px 0;
+      transition: var(--transition);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: var(--white);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo span {
+      color: var(--accent-teal);
+    }
+
+    .logo i {
+      margin-right: 8px;
+      color: var(--accent-teal);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-links li {
+      margin-left: 35px;
+    }
+
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.05rem;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .nav-links a:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-teal);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover:after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-teal);
+    }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: var(--white);
+    }
+
+    /* Thank You Section */
+    .thank-you-hero {
+      padding: 180px 0 100px;
+      background: linear-gradient(rgba(45, 49, 54, 0.9), rgba(45, 49, 54, 0.9)), 
+                  url('https://images.unsplash.com/photo-1497215842964-222b430dc094?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .thank-you-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 40px;
+      background: rgba(58, 62, 69, 0.8);
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .thank-you-content::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, transparent 20%, var(--accent-teal) 20%, transparent 30%);
+      background-size: 20px 20px;
+      opacity: 0.1;
+      animation: float 15s linear infinite;
+    }
+
+    .thank-you-icon {
+      font-size: 5rem;
+      color: var(--success-green);
+      margin-bottom: 20px;
+      animation: bounce 1.5s infinite alternate;
+    }
+
+    .thank-you-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, var(--accent-teal), #48bb78);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .thank-you-content p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.8;
+    }
+
+    .next-steps {
+      background: var(--dark-gray);
+      border-radius: 15px;
+      padding: 25px;
+      margin: 40px 0;
+      border-left: 4px solid var(--accent-teal);
+    }
+
+    .next-steps h3 {
+      color: var(--accent-teal);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .next-steps ul {
+      list-style: none;
+      text-align: left;
+      padding-left: 20px;
+    }
+
+    .next-steps li {
+      margin-bottom: 12px;
+      padding-left: 30px;
+      position: relative;
+    }
+
+    .next-steps li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--success-green);
+      font-weight: bold;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: var(--accent-teal);
+      border-radius: 50%;
+      animation: confetti-fall 5s linear infinite;
+    }
+
+    /* Footer Styles */
+    footer {
+      background: var(--dark-gray);
+      color: var(--text-light);
+      padding: 60px 0 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: auto;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    .footer-col h4 {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      position: relative;
+      color: var(--white);
+    }
+
+    .footer-col h4:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 40px;
+      height: 3px;
+      background: var(--accent-teal);
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: var(--text-medium);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-teal);
+      padding-left: 5px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-light);
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      background: var(--accent-teal);
+      transform: translateY(-3px);
+      color: var(--white);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-medium);
+      font-size: 0.9rem;
+    }
+
+    /* Contact Buttons */
+    .contact-buttons {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 100;
+    }
+
+    .contact-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: var(--shadow);
+      z-index: 100;
+      transition: var(--transition);
+      text-decoration: none;
+      position: relative;
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-5px) scale(1.1);
+    }
+
+    .whatsapp-btn {
+      background: #25D366;
+      color: white;
+    }
+
+    .whatsapp-btn:hover {
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.6);
+    }
+
+    .email-btn {
+      background: #D44638;
+      color: white;
+    }
+
+    .email-btn:hover {
+      box-shadow: 0 8px 20px rgba(212, 70, 56, 0.6);
+    }
+
+    .facebook-btn {
+      background: #3b5998;
+      color: white;
+    }
+
+    .facebook-btn:hover {
+      box-shadow: 0 8px 20px rgba(59, 89, 152, 0.6);
+    }
+
+    .contact-label {
+      position: absolute;
+      right: 70px;
+      background: var(--accent-teal);
+      color: white;
+      padding: 8px 15px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+    }
+
+    .contact-btn:hover .contact-label {
+      opacity: 1;
+      right: 75px;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes float {
+      0% {
+        transform: rotate(0deg) translateX(0);
+      }
+      100% {
+        transform: rotate(360deg) translateX(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .thank-you-content h1 {
+        font-size: 3rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: var(--dark-gray);
+        flex-direction: column;
+        align-items: center;
+        padding-top: 50px;
+        transition: var(--transition);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      
+      .nav-links.active {
+        left: 0;
+      }
+      
+      .nav-links li {
+        margin: 20px 0;
+        margin-left: 0;
+      }
+      
+      .thank-you-hero {
+        padding-top: 160px;
+        padding-bottom: 80px;
+      }
+      
+      .thank-you-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .contact-buttons {
+        bottom: 20px;
+        right: 20px;
+      }
+      
+      .contact-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .thank-you-content {
+        padding: 30px 20px;
+      }
+      
+      .thank-you-content h1 {
+        font-size: 2.2rem;
+      }
+      
+      .thank-you-icon {
+        font-size: 4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-file-alt"></i>Dynamic<span>Resumes</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="hamburger">☰</button>
+    </div>
+  </nav>
+
+  <section class="thank-you-hero">
+    <div class="thank-you-content">
+      <div class="thank-you-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h1>Thank You!</h1>
+      <p>Your CV information has been successfully submitted to Dynamic Resumes.</p>
+      <p>Our team will review your details and create a professional resume for you. We'll contact you within 24 hours if we need any additional information.</p>
+      
+      <div class="next-steps">
+        <h3><i class="fas fa-list-check"></i> What Happens Next?</h3>
+        <ul>
+          <li>Our experts will craft your professional CV</li>
+          <li>You'll receive a draft within 3 business days</li>
+          <li>We'll work with you on revisions if needed</li>
+          <li>Final files delivered in PDF and Word formats</li>
+        </ul>
+      </div>
+      
+      <a href="index.html" class="btn">
+        <i class="fas fa-home"></i> Return to Homepage
+      </a>
+    </div>
+  </section>
+
+  <!-- Confetti effect -->
+  <div id="confetti-container"></div>
+
+  <!-- Contact Buttons -->
+  <div class="contact-buttons">
+    <a href="https://wa.me/27781234567" class="contact-btn whatsapp-btn">
+      <i class="fab fa-whatsapp"></i>
+      <span class="contact-label">Chat on WhatsApp</span>
+    </a>
+    <a href="mailto:info@dynamicresumes.co.za" class="contact-btn email-btn">
+      <i class="fas fa-envelope"></i>
+      <span class="contact-label">Send Email</span>
+    </a>
+    <a href="https://www.facebook.com/dynamicresumes" class="contact-btn facebook-btn">
+      <i class="fab fa-facebook-f"></i>
+      <span class="contact-label">Visit Facebook</span>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h4>Dynamic Resumes</h4>
+          <p>Transforming careers through exceptional personal branding since 2020.</p>
+          <div class="social-links">
+            <a href="https://www.facebook.com/dynamicresumes"><i class="fab fa-facebook-f"></i></a>
+          </div>
+          <p class="facebook-stats">
+            <i class="fas fa-thumbs-up"></i> 2k+ Likes & Followers
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="services.html">Resume Writing</a></li>
+            <li><a href="services.html">PDF Document Package</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="#">Our Process</a></li>
+            <li><a href="#">Success Stories</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul class="footer-links">
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="#">Guarantee</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2024 Dynamic Resumes. All rights reserved. | Cape Town, South Africa
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Menu Toggle
+    document.querySelector('.hamburger').addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.toggle('active');
+    });
+
+    // Create confetti effect
+    function createConfetti() {
+      const container = document.getElementById('confetti-container');
+      const colors = ['#5aa79e', '#48bb78', '#4a6fa5', '#d44638', '#f6b93b'];
+      
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        
+        // Random properties
+        const size = Math.random() * 10 + 5;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const left = Math.random() * 100;
+        const animationDuration = Math.random() * 5 + 5;
+        const animationDelay = Math.random() * 5;
+        
+        confetti.style.width = `${size}px`;
+        confetti.style.height = `${size}px`;
+        confetti.style.backgroundColor = color;
+        confetti.style.left = `${left}%`;
+        confetti.style.animationDuration = `${animationDuration}s`;
+        confetti.style.animationDelay = `${animationDelay}s`;
+        
+        container.appendChild(confetti);
+      }
+    }
+    
+    // Create confetti when page loads
+    document.addEventListener('DOMContentLoaded', createConfetti);
+    
+    // Contact button animations
+    const contactButtons = document.querySelectorAll('.contact-btn');
+    contactButtons.forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        const label = btn.querySelector('.contact-label');
+        if (label) {
+          label.style.opacity = '1';
+          label.style.right = '75px';
+        }
+      });
+      
+      btn.addEventListener('mouseleave', () => {
+        const label = btn.querySelector('.contact-label');
+        if (label) {
+          label.style.opacity = '0';
+          label.style.right = '70px';
+        }
+      });
+    });
+  </script>
+</body>
+  </html>
