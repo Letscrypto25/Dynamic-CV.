@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Build Your CV | Dynamic-CV</title>
+    <title>Professional CV Builder | Dynamic-CV</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
-        // Initialize EmailJS with your public key
         emailjs.init('AMaljHy8rgaB20-FA');
     </script>
     <style>
@@ -1291,6 +1290,12 @@
                     cvFileName = fileInput.files[0].name;
                 }
                 
+                // Prepare skills array for email template
+                const skillsValue = document.getElementById('skills').value || '';
+                const skillsArray = skillsValue ? 
+                    skillsValue.split(',').map(skill => skill.trim()).filter(skill => skill !== '') : 
+                    [];
+                
                 // Prepare template parameters
                 const templateParams = {
                     template: document.getElementById('selectedTemplate').value,
@@ -1300,7 +1305,8 @@
                     phone: document.getElementById('phone').value || 'Not provided',
                     location: document.getElementById('location').value || 'Not provided',
                     summary: document.getElementById('summary').value || 'Not provided',
-                    skills: document.getElementById('skills').value || 'Not provided',
+                    skills: skillsValue || 'Not provided',
+                    skillsArray: skillsArray, // For the email template
                     cvUpload: cvFileName,
                     expTitles: Array.from(document.getElementsByName('expTitle[]')).map(i => i.value),
                     expCompanies: Array.from(document.getElementsByName('expCompany[]')).map(i => i.value),
