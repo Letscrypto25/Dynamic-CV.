@@ -1292,14 +1292,14 @@
             cvFileName = fileInput.files[0].name;
         }
         
-        // Prepare skills array - MUST be named skillsArray for template
+        // Prepare skills array
         const skillsInput = document.getElementById('skills');
         const skillsValue = skillsInput ? skillsInput.value || '' : '';
         const skillsArray = skillsValue ? 
             skillsInput.value.split(',').map(skill => skill.trim()).filter(skill => skill !== '') : 
             [];
         
-        // Prepare experience array - MUST match template variables
+        // Prepare experience array - corrected property names
         const experience = [];
         const expTitles = document.getElementsByName('expTitle[]');
         const expCompanies = document.getElementsByName('expCompany[]');
@@ -1319,7 +1319,7 @@
             });
         }
         
-        // Prepare education array - MUST match template variables
+        // Prepare education array - corrected property names
         const education = [];
         const eduDegrees = document.getElementsByName('eduDegree[]');
         const eduInstitutions = document.getElementsByName('eduInstitution[]');
@@ -1337,9 +1337,9 @@
             });
         }
         
-        // Prepare ALL template parameters - names must EXACTLY match template
+        // Prepare template parameters with EXACTLY matching names
         const templateParams = {
-            // Single value parameters
+            // Top-level variables
             template: document.getElementById('selectedTemplate')?.value || 'Not specified',
             fullName: document.getElementById('fullName')?.value || 'Not provided',
             jobTitle: document.getElementById('jobTitle')?.value || 'Not provided',
@@ -1354,7 +1354,7 @@
                 year: 'numeric'
             }),
             
-            // Array parameters - names must match template loops
+            // Array variables
             skillsArray: skillsArray,
             experience: experience,
             education: education
