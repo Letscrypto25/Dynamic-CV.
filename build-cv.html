@@ -1271,7 +1271,6 @@
         }
 
         //Initialize 
-
         document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle
     document.querySelector('.hamburger').addEventListener('click', () => {
@@ -1300,7 +1299,7 @@
             skillsInput.value.split(',').map(skill => skill.trim()).filter(skill => skill !== '') : 
             [];
         
-        // Prepare experience array - simplified without location
+        // Prepare experience array WITHOUT location
         const experience = [];
         const expTitles = document.getElementsByName('expTitle[]');
         const expCompanies = document.getElementsByName('expCompany[]');
@@ -1318,7 +1317,7 @@
             });
         }
         
-        // Prepare education array - simplified without location
+        // Prepare education array WITHOUT location
         const education = [];
         const eduDegrees = document.getElementsByName('eduDegree[]');
         const eduInstitutions = document.getElementsByName('eduInstitution[]');
@@ -1334,15 +1333,15 @@
             });
         }
         
-        // Prepare simplified template parameters
+        // Prepare template parameters with EXACT matches
         const templateParams = {
-            // Single value parameters
+            // Top-level variables
             template: document.getElementById('selectedTemplate')?.value || 'Not specified',
             fullName: document.getElementById('fullName')?.value || 'Not provided',
             jobTitle: document.getElementById('jobTitle')?.value || 'Not provided',
             email: document.getElementById('email')?.value || 'Not provided',
             phone: document.getElementById('phone')?.value || 'Not provided',
-            location: document.getElementById('location')?.value || 'Not provided', // Keep only top-level location
+            location: document.getElementById('location')?.value || 'Not provided', // Top-level only
             summary: document.getElementById('summary')?.value || 'Not provided',
             cvUpload: cvFileName,
             date: new Date().toLocaleDateString('en-GB', { 
@@ -1351,7 +1350,7 @@
                 year: 'numeric'
             }),
             
-            // Array parameters
+            // Array variables
             skillsArray: skillsArray,
             experience: experience,
             education: education
@@ -1380,7 +1379,9 @@
         });
     });
 });
-            
+
+    
+        
         
     </script>
 </body>
