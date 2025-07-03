@@ -1291,50 +1291,67 @@
             cvFileName = fileInput.files[0].name;
         }
         
-        // Prepare skills array
-        const skillsValue = document.getElementById('skills').value || '';
+        // Prepare skills array with proper filtering
+        const skillsInput = document.getElementById('skills');
+        const skillsValue = skillsInput ? skillsInput.value || '' : '';
         const skillsArray = skillsValue ? 
             skillsValue.split(',').map(skill => skill.trim()).filter(skill => skill !== '') : 
             [];
         
-        // Prepare experience as an array of objects
+        // Prepare experience as an array of objects with fallbacks
         const experience = [];
         const expTitles = document.getElementsByName('expTitle[]');
         for (let i = 0; i < expTitles.length; i++) {
+            // Skip empty entries
+            if (!expTitles[i].value.trim()) continue;
+            
             experience.push({
-                title: expTitles[i].value,
-                company: document.getElementsByName('expCompany[]')[i].value,
-                location: document.getElementsByName('expLocation[]')[i].value,
-                date: document.getElementsByName('expDate[]')[i].value,
-                description: document.getElementsByName('expDescription[]')[i].value
+                title: expTitles[i].value || 'Not provided',
+                company: document.getElementsByName('expCompany[]')[i]?.value || 'Not provided',
+                location: document.getElementsByName('expLocation[]')[i]?.value || 'Not provided',
+                date: document.getElementsByName('expDate[]')[i]?.value || 'Not provided',
+                description: document.getElementsByName('expDescription[]')[i]?.value || 'Not provided'
             });
         }
         
-        // Prepare education as an array of objects
+        // Prepare education as an array of objects with fallbacks
         const education = [];
         const eduDegrees = document.getElementsByName('eduDegree[]');
         for (let i = 0; i < eduDegrees.length; i++) {
+            // Skip empty entries
+            if (!eduDegrees[i].value.trim()) continue;
+            
             education.push({
-                degree: eduDegrees[i].value,
-                institution: document.getElementsByName('eduInstitution[]')[i].value,
-                location: document.getElementsByName('eduLocation[]')[i].value,
-                date: document.getElementsByName('eduDate[]')[i].value
+                degree: eduDegrees[i].value || 'Not provided',
+                institution: document.getElementsByName('eduInstitution[]')[i]?.value || 'Not provided',
+                location: document.getElementsByName('eduLocation[]')[i]?.value || 'Not provided',
+                date: document.getElementsByName('eduDate[]')[i]?.value || 'Not provided'
             });
         }
         
-        // Prepare template parameters
+        // Prepare template parameters with proper fallbacks
         const templateParams = {
-            template: document.getElementById('selectedTemplate').value,
-            fullName: document.getElementById('fullName').value,
-            jobTitle: document.getElementById('jobTitle').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value || 'Not provided',
-            location: document.getElementById('location').value || 'Not provided',
-            summary: document.getElementById('summary').value || 'Not provided',
-            skills: skillsValue || 'Not provided',
+            template: document.getElementById('selectedTemplate')?.value || 'Not specified',
+            fullName: document.getElementById('fullName')?.value || 'Not provided',
+            jobTitle: document.getElementById('jobTitle')?.value || 'Not provided',
+            email: document.getElementById('email')?.value || 'Not provided',
+            phone: document.getElementById('phone')?.value || 'Not provided',
+            location: document.getElementById('location')?.value || 'Not provided',
+            summary: document.getElementById('summary')?.value || 'Not provided',
             skillsArray: skillsArray,
-            experience: experience,
-            education: education,
+            experience: experience.length ? experience : [{ // Fallback empty experience
+                title: 'Not provided',
+                company: 'Not provided',
+                location: 'Not provided',
+                date: 'Not provided',
+                description: 'Not provided'
+            }],
+            education: education.length ? education : [{ // Fallback empty education
+                degree: 'Not provided',
+                institution: 'Not provided',
+                location: 'Not provided',
+                date: 'Not provided'
+            }],
             cvUpload: cvFileName,
             date: new Date().toLocaleDateString('en-GB', { 
                 day: '2-digit', 
@@ -1342,6 +1359,8 @@
                 year: 'numeric'
             })
         };
+        
+        console.log("Template Params:", templateParams); // For debugging
         
         // Send form using EmailJS
         emailjs.send(
