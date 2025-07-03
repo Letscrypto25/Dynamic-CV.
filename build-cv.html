@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professional CV Builder | Dynamic-CV</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700;800&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --dark-gray: #2d3136;
@@ -46,14 +46,11 @@
             border-radius: 20px;
             overflow: hidden;
             box-shadow: var(--card-shadow);
-            display: flex;
-            flex-direction: column;
-            min-height: 90vh;
         }
         
         .header {
             background: linear-gradient(to right, #1a1d21, #2d3136);
-            padding: 30px 40px;
+            padding: 40px 40px 30px;
             text-align: center;
             color: white;
             position: relative;
@@ -136,9 +133,6 @@
         
         .form-container {
             padding: 30px 40px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
         }
         
         .form-nav {
@@ -789,6 +783,18 @@
                             within 24 hours and send it to your email. Remember our 
                             <span class="highlight">14-Day Free Amendment Service</span> if you need any changes.
                         </p>
+                        
+                        <div class="review-summary">
+                            <div class="review-item">
+                                <strong>Full Name:</strong> <span id="reviewName"></span>
+                            </div>
+                            <div class="review-item">
+                                <strong>Email:</strong> <span id="reviewEmail"></span>
+                            </div>
+                            <div class="review-item">
+                                <strong>Template:</strong> <span id="reviewTemplate"></span>
+                            </div>
+                        </div>
                     </div>
                     
                     <button type="submit" class="btn btn-submit">
@@ -848,6 +854,13 @@
                 
                 // Update progress bar
                 progress.style.width = `${(currentSection + 1) * (100 / sections.length)}%`;
+                
+                // Update review section
+                if (currentSection === sections.length - 1) {
+                    document.getElementById('reviewName').textContent = document.getElementById('fullName').value;
+                    document.getElementById('reviewEmail').textContent = document.getElementById('email').value;
+                    document.getElementById('reviewTemplate').textContent = document.getElementById('selectedTemplate').value;
+                }
             }
             
             // Navigation button handlers
@@ -1037,9 +1050,137 @@
                 }, 5000);
             }
             
+            // Form submission to Google Sheets
+            const form = document.getElementById('cvForm');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalBtnContent = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                submitBtn.disabled = true;
+                
+                // Prepare form data
+                const formData = {
+                    timestamp: new Date().toISOString(),
+                    fullName: document.getElementById('fullName').value,
+                    jobTitle: document.getElementById('jobTitle').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value || 'N/A',
+                    location: document.getElementById('location').value || 'N/A',
+                    summary: document.getElementById('summary').value || 'N/A',
+                    skills: skillsArray.join(', ') || 'N/A',
+                    template: document.getElementById('selectedTemplate').value,
+                    cvUpload: fileInput.files[0] ? fileInput.files[0].name : 'None',
+                    experience: [],
+                    education: []
+                };
+                
+                // Collect experience entries
+                const expTitles = document.getElementsByName('expTitle[]');
+                const expCompanies = document.getElementsByName('expCompany[]');
+                const expDates = document.getElementsByName('expDate[]');
+                const expLocations = document.getElementsByName('expLocation[]');
+                const expDescriptions = document.getElementsByName('expDescription[]');
+                
+                for (let i = 0; i < expTitles.length; i++) {
+                    if (expTitles[i].value.trim() === '') continue;
+                    
+                    formData.experience.push({
+                        title: expTitles[i].value,
+                        company: expCompanies[i].value,
+                        date: expDates[i].value || 'N/A',
+                        location: expLocations[i].value || 'N/A',
+                        description: expDescriptions[i].value || 'N/A'
+                    });
+                }
+                
+                // Collect education entries
+                const eduDegrees = document.getElementsByName('eduDegree[]');
+                const eduInstitutions = document.getElementsByName('eduInstitution[]');
+                const eduDates = document.getElementsByName('eduDate[]');
+                const eduLocations = document.getElementsByName('eduLocation[]');
+                
+                for (let i = 0; i < eduDegrees.length; i++) {
+                    if (eduDegrees[i].value.trim() === '') continue;
+                    
+                    formData.education.push({
+                        degree: eduDegrees[i].value,
+                        institution: eduInstitutions[i].value,
+                        date: eduDates[i].value || 'N/A',
+                        location: eduLocations[i].value || 'N/A'
+                    });
+                }
+                
+                // Convert arrays to JSON for storage
+                formData.experience = JSON.stringify(formData.experience);
+                formData.education = JSON.stringify(formData.education);
+                
+                // Your SheetDB API endpoint
+                const apiEndpoint = 'https://sheetdb.io/api/v1/ahy7hz996re6d';
+                
+                // Send to SheetDB
+                fetch(apiEndpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        data: [formData]
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Network response was not ok');
+                })
+                .then(data => {
+                    if (data.created === 1) {
+                        showStatus('Your CV details have been submitted successfully! We will contact you shortly.', 'success');
+                        
+                        // Reset form after successful submission
+                        setTimeout(() => {
+                            form.reset();
+                            skillsArray = [];
+                            skillsContainer.innerHTML = '';
+                            fileName.textContent = 'No file selected';
+                            
+                            // Reset dynamic sections
+                            while (experienceContainer.children.length > 1) {
+                                experienceContainer.lastChild.remove();
+                            }
+                            while (educationContainer.children.length > 1) {
+                                educationContainer.lastChild.remove();
+                            }
+                            
+                            // Hide remove buttons on first entries
+                            document.querySelector('.remove-experience').style.display = 'none';
+                            document.querySelector('.remove-education').style.display = 'none';
+                            
+                            // Go back to first section
+                            currentSection = 0;
+                            updateNavigation();
+                        }, 3000);
+                    } else {
+                        throw new Error('Failed to create record in sheet');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showStatus('Failed to submit your details. Please try again or contact us directly.', 'error');
+                })
+                .finally(() => {
+                    submitBtn.innerHTML = originalBtnContent;
+                    submitBtn.disabled = false;
+                });
+            });
+            
             // Initialize navigation
             updateNavigation();
         });
     </script>
 </body>
-</html>
+                            </html>
