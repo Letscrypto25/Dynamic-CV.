@@ -1287,23 +1287,21 @@
         // Get file name if uploaded
         let cvFileName = 'None';
         const fileInput = document.getElementById('cvUpload');
-        if (fileInput.files.length > 0) {
+        if (fileInput && fileInput.files.length > 0) {
             cvFileName = fileInput.files[0].name;
         }
         
-        // Prepare skills array with proper filtering
-        const skillsInput = document.getElementById('skills');
-        const skillsValue = skillsInput ? skillsInput.value || '' : '';
+        // Prepare skills array
+        const skillsValue = document.getElementById('skills')?.value || '';
         const skillsArray = skillsValue ? 
             skillsValue.split(',').map(skill => skill.trim()).filter(skill => skill !== '') : 
             [];
         
-        // Prepare experience as an array of objects with fallbacks
+        // Prepare experience as an array of objects
         const experience = [];
         const expTitles = document.getElementsByName('expTitle[]');
         for (let i = 0; i < expTitles.length; i++) {
-            // Skip empty entries
-            if (!expTitles[i].value.trim()) continue;
+            if (expTitles[i].value.trim() === '') continue;
             
             experience.push({
                 title: expTitles[i].value || 'Not provided',
@@ -1314,12 +1312,11 @@
             });
         }
         
-        // Prepare education as an array of objects with fallbacks
+        // Prepare education as an array of objects
         const education = [];
         const eduDegrees = document.getElementsByName('eduDegree[]');
         for (let i = 0; i < eduDegrees.length; i++) {
-            // Skip empty entries
-            if (!eduDegrees[i].value.trim()) continue;
+            if (eduDegrees[i].value.trim() === '') continue;
             
             education.push({
                 degree: eduDegrees[i].value || 'Not provided',
@@ -1329,8 +1326,9 @@
             });
         }
         
-        // Prepare template parameters with proper fallbacks
+        // Prepare template parameters with ALL variables defined
         const templateParams = {
+            // Top-level variables
             template: document.getElementById('selectedTemplate')?.value || 'Not specified',
             fullName: document.getElementById('fullName')?.value || 'Not provided',
             jobTitle: document.getElementById('jobTitle')?.value || 'Not provided',
@@ -1338,29 +1336,32 @@
             phone: document.getElementById('phone')?.value || 'Not provided',
             location: document.getElementById('location')?.value || 'Not provided',
             summary: document.getElementById('summary')?.value || 'Not provided',
-            skillsArray: skillsArray,
-            experience: experience.length ? experience : [{ // Fallback empty experience
-                title: 'Not provided',
-                company: 'Not provided',
-                location: 'Not provided',
-                date: 'Not provided',
-                description: 'Not provided'
-            }],
-            education: education.length ? education : [{ // Fallback empty education
-                degree: 'Not provided',
-                institution: 'Not provided',
-                location: 'Not provided',
-                date: 'Not provided'
-            }],
             cvUpload: cvFileName,
             date: new Date().toLocaleDateString('en-GB', { 
                 day: '2-digit', 
                 month: 'short', 
                 year: 'numeric'
-            })
+            }) || 'Not provided',
+            
+            // Array variables
+            skillsArray: skillsArray,
+            experience: experience.length ? experience : [{
+                title: 'No experience provided',
+                company: 'Not provided',
+                location: 'Not provided',
+                date: 'Not provided',
+                description: 'Not provided'
+            }],
+            education: education.length ? education : [{
+                degree: 'No education provided',
+                institution: 'Not provided',
+                location: 'Not provided',
+                date: 'Not provided'
+            }]
         };
         
-        console.log("Template Params:", templateParams); // For debugging
+        // Log for debugging
+        console.log("EmailJS Template Parameters:", templateParams);
         
         // Send form using EmailJS
         emailjs.send(
