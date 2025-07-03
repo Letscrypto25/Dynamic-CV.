@@ -1272,96 +1272,97 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu toggle
-            document.querySelector('.hamburger').addEventListener('click', () => {
-                document.querySelector('.nav-links').classList.toggle('active');
+    // Mobile menu toggle
+    document.querySelector('.hamburger').addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.toggle('active');
+    });
+    
+    // Handle form submission with EmailJS
+    document.getElementById('submitBtn').addEventListener('click', function() {
+        // Show loading indicator
+        const submitBtn = this;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitBtn.disabled = true;
+        
+        // Get file name if uploaded
+        let cvFileName = 'None';
+        const fileInput = document.getElementById('cvUpload');
+        if (fileInput.files.length > 0) {
+            cvFileName = fileInput.files[0].name;
+        }
+        
+        // Prepare skills array
+        const skillsValue = document.getElementById('skills').value || '';
+        const skillsArray = skillsValue ? 
+            skillsValue.split(',').map(skill => skill.trim()).filter(skill => skill !== '') : 
+            [];
+        
+        // Prepare experience as an array of objects
+        const experience = [];
+        const expTitles = document.getElementsByName('expTitle[]');
+        for (let i = 0; i < expTitles.length; i++) {
+            experience.push({
+                title: expTitles[i].value,
+                company: document.getElementsByName('expCompany[]')[i].value,
+                location: document.getElementsByName('expLocation[]')[i].value,
+                date: document.getElementsByName('expDate[]')[i].value,
+                description: document.getElementsByName('expDescription[]')[i].value
             });
-            
-            // Handle form submission with EmailJS
-            document.getElementById('submitBtn').addEventListener('click', function() {
-                // Show loading indicator
-                const submitBtn = this;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-                submitBtn.disabled = true;
-                
-                // Get file name if uploaded
-                let cvFileName = 'None';
-                const fileInput = document.getElementById('cvUpload');
-                if (fileInput.files.length > 0) {
-                    cvFileName = fileInput.files[0].name;
-                }
-                
-                // Prepare skills array
-                const skillsValue = document.getElementById('skills').value || '';
-                const skillsArray = skillsValue ? 
-                    skillsValue.split(',').map(skill => skill.trim()).filter(skill => skill !== '') : 
-                    [];
-                
-                // Create experience array
-                const experience = [];
-                const expTitles = document.getElementsByName('expTitle[]');
-                for (let i = 0; i < expTitles.length; i++) {
-                    experience.push({
-                        title: expTitles[i].value,
-                        company: document.getElementsByName('expCompany[]')[i].value,
-                        location: document.getElementsByName('expLocation[]')[i].value,
-                        date: document.getElementsByName('expDate[]')[i].value,
-                        description: document.getElementsByName('expDescription[]')[i].value
-                    });
-                }
-                
-                // Create education array
-                const education = [];
-                const eduDegrees = document.getElementsByName('eduDegree[]');
-                for (let i = 0; i < eduDegrees.length; i++) {
-                    education.push({
-                        degree: eduDegrees[i].value,
-                        institution: document.getElementsByName('eduInstitution[]')[i].value,
-                        location: document.getElementsByName('eduLocation[]')[i].value,
-                        date: document.getElementsByName('eduDate[]')[i].value
-                    });
-                }
-                
-                // Prepare template parameters
-                const templateParams = {
-                    template: document.getElementById('selectedTemplate').value,
-                    fullName: document.getElementById('fullName').value,
-                    jobTitle: document.getElementById('jobTitle').value,
-                    email: document.getElementById('email').value,
-                    phone: document.getElementById('phone').value || 'Not provided',
-                    location: document.getElementById('location').value || 'Not provided',
-                    summary: document.getElementById('summary').value || 'Not provided',
-                    skills: skillsValue || 'Not provided',
-                    skillsArray: skillsArray, 
-                    cvUpload: cvFileName,
-                    experience: experience,
-                    education: education,
-                    date: new Date().toLocaleDateString('en-GB', { 
-                        day: '2-digit', 
-                        month: 'short', 
-                        year: 'numeric'
-                    })
-                };
-                
-                // Send form using EmailJS
-                emailjs.send(
-                    'service_8iopnw7',  // Service ID
-                    'template_nfswm2m', // Template ID
-                    templateParams
-                )
-                .then(function() {
-                    // Success handling
-                    alert('Your CV details have been submitted successfully!');
-                    document.getElementById('cvForm').reset();
-                    window.location.href = 'thank-you.html';
-                }, function(error) {
-                    // Error handling
-                    alert('Failed to send: ' + error.text);
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Information';
-                    submitBtn.disabled = false;
-                });
+        }
+        
+        // Prepare education as an array of objects
+        const education = [];
+        const eduDegrees = document.getElementsByName('eduDegree[]');
+        for (let i = 0; i < eduDegrees.length; i++) {
+            education.push({
+                degree: eduDegrees[i].value,
+                institution: document.getElementsByName('eduInstitution[]')[i].value,
+                location: document.getElementsByName('eduLocation[]')[i].value,
+                date: document.getElementsByName('eduDate[]')[i].value
             });
+        }
+        
+        // Prepare template parameters
+        const templateParams = {
+            template: document.getElementById('selectedTemplate').value,
+            fullName: document.getElementById('fullName').value,
+            jobTitle: document.getElementById('jobTitle').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value || 'Not provided',
+            location: document.getElementById('location').value || 'Not provided',
+            summary: document.getElementById('summary').value || 'Not provided',
+            skills: skillsValue || 'Not provided',
+            skillsArray: skillsArray,
+            experience: experience,
+            education: education,
+            cvUpload: cvFileName,
+            date: new Date().toLocaleDateString('en-GB', { 
+                day: '2-digit', 
+                month: 'short', 
+                year: 'numeric'
+            })
+        };
+        
+        // Send form using EmailJS
+        emailjs.send(
+            'service_8iopnw7',  // Service ID
+            'template_nfswm2m', // Template ID
+            templateParams
+        )
+        .then(function() {
+            // Success handling
+            alert('Your CV details have been submitted successfully!');
+            document.getElementById('cvForm').reset();
+            window.location.href = 'thank-you.html';
+        }, function(error) {
+            // Error handling
+            alert('Failed to send: ' + error.text);
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Information';
+            submitBtn.disabled = false;
         });
+    });
+});
+        
     </script>
 </body>
 </html>
