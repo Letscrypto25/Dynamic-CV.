@@ -1281,6 +1281,7 @@
     document.getElementById('submitBtn').addEventListener('click', function() {
         // Show loading indicator
         const submitBtn = this;
+        const originalBtnText = submitBtn.innerHTML;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
         submitBtn.disabled = true;
         
@@ -1291,44 +1292,54 @@
             cvFileName = fileInput.files[0].name;
         }
         
-        // Prepare skills array
-        const skillsValue = document.getElementById('skills')?.value || '';
+        // Prepare skills array - MUST be named skillsArray for template
+        const skillsInput = document.getElementById('skills');
+        const skillsValue = skillsInput ? skillsInput.value || '' : '';
         const skillsArray = skillsValue ? 
-            skillsValue.split(',').map(skill => skill.trim()).filter(skill => skill !== '') : 
+            skillsInput.value.split(',').map(skill => skill.trim()).filter(skill => skill !== '') : 
             [];
         
-        // Prepare experience as an array of objects
+        // Prepare experience array - MUST match template variables
         const experience = [];
         const expTitles = document.getElementsByName('expTitle[]');
+        const expCompanies = document.getElementsByName('expCompany[]');
+        const expLocations = document.getElementsByName('expLocation[]');
+        const expDates = document.getElementsByName('expDate[]');
+        const expDescriptions = document.getElementsByName('expDescription[]');
+        
         for (let i = 0; i < expTitles.length; i++) {
-            if (expTitles[i].value.trim() === '') continue;
+            if (!expTitles[i].value.trim()) continue;
             
             experience.push({
                 title: expTitles[i].value || 'Not provided',
-                company: document.getElementsByName('expCompany[]')[i]?.value || 'Not provided',
-                location: document.getElementsByName('expLocation[]')[i]?.value || 'Not provided',
-                date: document.getElementsByName('expDate[]')[i]?.value || 'Not provided',
-                description: document.getElementsByName('expDescription[]')[i]?.value || 'Not provided'
+                company: expCompanies[i]?.value || 'Not provided',
+                location: expLocations[i]?.value || 'Not provided',
+                date: expDates[i]?.value || 'Not provided',
+                description: expDescriptions[i]?.value || 'Not provided'
             });
         }
         
-        // Prepare education as an array of objects
+        // Prepare education array - MUST match template variables
         const education = [];
         const eduDegrees = document.getElementsByName('eduDegree[]');
+        const eduInstitutions = document.getElementsByName('eduInstitution[]');
+        const eduLocations = document.getElementsByName('eduLocation[]');
+        const eduDates = document.getElementsByName('eduDate[]');
+        
         for (let i = 0; i < eduDegrees.length; i++) {
-            if (eduDegrees[i].value.trim() === '') continue;
+            if (!eduDegrees[i].value.trim()) continue;
             
             education.push({
                 degree: eduDegrees[i].value || 'Not provided',
-                institution: document.getElementsByName('eduInstitution[]')[i]?.value || 'Not provided',
-                location: document.getElementsByName('eduLocation[]')[i]?.value || 'Not provided',
-                date: document.getElementsByName('eduDate[]')[i]?.value || 'Not provided'
+                institution: eduInstitutions[i]?.value || 'Not provided',
+                location: eduLocations[i]?.value || 'Not provided',
+                date: eduDates[i]?.value || 'Not provided'
             });
         }
         
-        // Prepare template parameters with ALL variables defined
+        // Prepare ALL template parameters - names must EXACTLY match template
         const templateParams = {
-            // Top-level variables
+            // Single value parameters
             template: document.getElementById('selectedTemplate')?.value || 'Not specified',
             fullName: document.getElementById('fullName')?.value || 'Not provided',
             jobTitle: document.getElementById('jobTitle')?.value || 'Not provided',
@@ -1341,27 +1352,16 @@
                 day: '2-digit', 
                 month: 'short', 
                 year: 'numeric'
-            }) || 'Not provided',
+            }),
             
-            // Array variables
+            // Array parameters - names must match template loops
             skillsArray: skillsArray,
-            experience: experience.length ? experience : [{
-                title: 'No experience provided',
-                company: 'Not provided',
-                location: 'Not provided',
-                date: 'Not provided',
-                description: 'Not provided'
-            }],
-            education: education.length ? education : [{
-                degree: 'No education provided',
-                institution: 'Not provided',
-                location: 'Not provided',
-                date: 'Not provided'
-            }]
+            experience: experience,
+            education: education
         };
         
-        // Log for debugging
-        console.log("EmailJS Template Parameters:", templateParams);
+        // Debugging: Log all parameters before sending
+        console.log("EmailJS Parameters:", JSON.stringify(templateParams, null, 2));
         
         // Send form using EmailJS
         emailjs.send(
@@ -1376,8 +1376,9 @@
             window.location.href = 'thank-you.html';
         }, function(error) {
             // Error handling
+            console.error('EmailJS Error:', error);
             alert('Failed to send: ' + error.text);
-            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Information';
+            submitBtn.innerHTML = originalBtnText;
             submitBtn.disabled = false;
         });
     });
