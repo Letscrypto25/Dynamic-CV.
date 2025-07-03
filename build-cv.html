@@ -1270,7 +1270,8 @@
             }
         }
 
-        // Initialize
+        //Initialize 
+
         document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle
     document.querySelector('.hamburger').addEventListener('click', () => {
@@ -1299,11 +1300,10 @@
             skillsInput.value.split(',').map(skill => skill.trim()).filter(skill => skill !== '') : 
             [];
         
-        // Prepare experience array - corrected property names
+        // Prepare experience array - simplified without location
         const experience = [];
         const expTitles = document.getElementsByName('expTitle[]');
         const expCompanies = document.getElementsByName('expCompany[]');
-        const expLocations = document.getElementsByName('expLocation[]');
         const expDates = document.getElementsByName('expDate[]');
         const expDescriptions = document.getElementsByName('expDescription[]');
         
@@ -1313,17 +1313,15 @@
             experience.push({
                 title: expTitles[i].value || 'Not provided',
                 company: expCompanies[i]?.value || 'Not provided',
-                location: expLocations[i]?.value || 'Not provided',
                 date: expDates[i]?.value || 'Not provided',
                 description: expDescriptions[i]?.value || 'Not provided'
             });
         }
         
-        // Prepare education array - corrected property names
+        // Prepare education array - simplified without location
         const education = [];
         const eduDegrees = document.getElementsByName('eduDegree[]');
         const eduInstitutions = document.getElementsByName('eduInstitution[]');
-        const eduLocations = document.getElementsByName('eduLocation[]');
         const eduDates = document.getElementsByName('eduDate[]');
         
         for (let i = 0; i < eduDegrees.length; i++) {
@@ -1332,20 +1330,19 @@
             education.push({
                 degree: eduDegrees[i].value || 'Not provided',
                 institution: eduInstitutions[i]?.value || 'Not provided',
-                location: eduLocations[i]?.value || 'Not provided',
                 date: eduDates[i]?.value || 'Not provided'
             });
         }
         
-        // Prepare template parameters with EXACTLY matching names
+        // Prepare simplified template parameters
         const templateParams = {
-            // Top-level variables
+            // Single value parameters
             template: document.getElementById('selectedTemplate')?.value || 'Not specified',
             fullName: document.getElementById('fullName')?.value || 'Not provided',
             jobTitle: document.getElementById('jobTitle')?.value || 'Not provided',
             email: document.getElementById('email')?.value || 'Not provided',
             phone: document.getElementById('phone')?.value || 'Not provided',
-            location: document.getElementById('location')?.value || 'Not provided',
+            location: document.getElementById('location')?.value || 'Not provided', // Keep only top-level location
             summary: document.getElementById('summary')?.value || 'Not provided',
             cvUpload: cvFileName,
             date: new Date().toLocaleDateString('en-GB', { 
@@ -1354,7 +1351,7 @@
                 year: 'numeric'
             }),
             
-            // Array variables
+            // Array parameters
             skillsArray: skillsArray,
             experience: experience,
             education: education
@@ -1383,6 +1380,7 @@
         });
     });
 });
+            
         
     </script>
 </body>
