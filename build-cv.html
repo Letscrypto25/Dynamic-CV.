@@ -1248,7 +1248,7 @@
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
                 submitBtn.disabled = true;
                 
-                // Prepare form data with descriptive variable names
+                // Prepare form data
                 const formData = {
                     "Timestamp": new Date().toISOString(),
                     "Service Type": selectedService,
@@ -1262,27 +1262,49 @@
                     "CV Template": document.getElementById('selectedTemplate')?.value || 'N/A',
                     "Uploaded CV File": fileInput.files[0] ? fileInput.files[0].name : 'None',
                     "Special Requests": document.getElementById('userComments')?.value || 'N/A',
-                    "Experience": JSON.stringify(getSectionData('expTitle', 'expCompany', 'expDate', 'expLocation', 'expDescription')),
-                    "Education": JSON.stringify(getSectionData('eduDegree', 'eduInstitution', 'eduDate', 'eduLocation'))
+                    "Experience": getExperienceData(),
+                    "Education": getEducationData()
                 };
                 
-                // Helper function to collect section data
-                function getSectionData(...fieldNames) {
-                    const results = [];
-                    const fieldCount = document.getElementsByName(fieldNames[0]).length;
+                // Helper function to get experience data
+                function getExperienceData() {
+                    const experiences = [];
+                    const entries = document.querySelectorAll('.experience-entry');
                     
-                    for (let i = 0; i < fieldCount; i++) {
-                        const entry = {};
-                        fieldNames.forEach(name => {
-                            const key = name.replace(/exp|edu|\[\]/g, '')
-                                           .replace(/([A-Z])/g, ' $1')
-                                           .trim();
-                            const value = document.getElementsByName(name)[i].value.trim();
-                            if (value) entry[key] = value;
+                    entries.forEach(entry => {
+                        const title = entry.querySelector('input[name="expTitle[]"]').value.trim();
+                        if (!title) return; // Skip empty entries
+                        
+                        experiences.push({
+                            "Job Title": title,
+                            "Company": entry.querySelector('input[name="expCompany[]"]').value.trim(),
+                            "Date": entry.querySelector('input[name="expDate[]"]').value.trim(),
+                            "Location": entry.querySelector('input[name="expLocation[]"]').value.trim(),
+                            "Description": entry.querySelector('textarea[name="expDescription[]"]').value.trim()
                         });
-                        if (Object.keys(entry).length > 0) results.push(entry);
-                    }
-                    return results;
+                    });
+                    
+                    return JSON.stringify(experiences);
+                }
+                
+                // Helper function to get education data
+                function getEducationData() {
+                    const educations = [];
+                    const entries = document.querySelectorAll('.education-entry');
+                    
+                    entries.forEach(entry => {
+                        const degree = entry.querySelector('input[name="eduDegree[]"]').value.trim();
+                        if (!degree) return; // Skip empty entries
+                        
+                        educations.push({
+                            "Degree": degree,
+                            "Institution": entry.querySelector('input[name="eduInstitution[]"]').value.trim(),
+                            "Date": entry.querySelector('input[name="eduDate[]"]').value.trim(),
+                            "Location": entry.querySelector('input[name="eduLocation[]"]').value.trim()
+                        });
+                    });
+                    
+                    return JSON.stringify(educations);
                 }
                 
                 // Send to SheetDB.io
@@ -1340,4 +1362,4 @@
         });
     </script>
 </body>
-  </html>
+    </html>
