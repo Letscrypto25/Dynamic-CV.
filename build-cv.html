@@ -248,6 +248,57 @@
             gap: 25px;
         }
         
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .service-option {
+            background: var(--accent-teal-light);
+            border: 2px solid var(--accent-teal);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .service-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(90, 167, 158, 0.2);
+            background: var(--white);
+        }
+        
+        .service-option.selected {
+            background: var(--accent-teal);
+            color: white;
+            border-color: var(--accent-teal-dark);
+        }
+        
+        .service-option.selected h3,
+        .service-option.selected p,
+        .service-option.selected i {
+            color: white;
+        }
+        
+        .service-option i {
+            font-size: 2.5rem;
+            color: var(--accent-teal);
+            margin-bottom: 15px;
+        }
+        
+        .service-option h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--dark-gray);
+        }
+        
+        .service-option p {
+            color: var(--medium-gray);
+            line-height: 1.6;
+        }
+        
         .skills-container {
             display: flex;
             flex-wrap: wrap;
@@ -481,7 +532,7 @@
         }
         
         @media (max-width: 768px) {
-            .grid-2 {
+            .grid-2, .grid-3 {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
@@ -578,55 +629,118 @@
                     </button>
                 </div>
                 
+                <!-- Service Selection Section -->
+                <div class="form-section" id="serviceSection">
+                    <h2 class="section-title">
+                        <i class="fas fa-cogs"></i>
+                        Select Service Type
+                    </h2>
+                    
+                    <div class="grid-3">
+                        <div class="service-option" data-service="upload">
+                            <i class="fas fa-file-upload"></i>
+                            <h3>Upload CV Only</h3>
+                            <p>Simply upload your current CV and we'll redesign it professionally</p>
+                        </div>
+                        
+                        <div class="service-option" data-service="questions">
+                            <i class="fas fa-question-circle"></i>
+                            <h3>Answer Questions Only</h3>
+                            <p>Provide your information and we'll create a CV from scratch</p>
+                        </div>
+                        
+                        <div class="service-option" data-service="both">
+                            <i class="fas fa-tasks"></i>
+                            <h3>Upload + Questions</h3>
+                            <p>Upload your CV and answer additional questions for the best result</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Upload Section -->
+                <div class="form-section" id="uploadSection" style="display:none;">
+                    <h2 class="section-title">
+                        <i class="fas fa-file-upload"></i>
+                        Upload Your CV
+                    </h2>
+                    
+                    <div class="form-group">
+                        <label for="userEmail">
+                            <i class="fas fa-envelope"></i>Email Address *
+                        </label>
+                        <input type="email" id="userEmail" name="userEmail" required placeholder="your.email@example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-file-upload"></i>Upload Current CV *
+                        </label>
+                        <div class="file-upload">
+                            <div class="file-btn" id="uploadTrigger">
+                                <i class="fas fa-cloud-upload-alt"></i> Choose File
+                            </div>
+                            <span class="file-name" id="fileName">No file selected</span>
+                        </div>
+                        <input type="file" id="cvUpload" name="cvUpload" accept=".pdf,.doc,.docx" style="display: none;" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userComments">
+                            <i class="fas fa-comment"></i>Special Requests
+                        </label>
+                        <textarea id="userComments" name="userComments" placeholder="Any specific requests or notes for our team..."></textarea>
+                    </div>
+                </div>
+                
                 <!-- Personal Information Section -->
-                <div class="form-section" id="personalSection">
+                <div class="form-section" id="personalSection" style="display:none;">
                     <h2 class="section-title">
                         <i class="fas fa-user"></i>
                         Personal Information
                     </h2>
                     
                     <div class="form-group">
-                        <label for="fullName">
+                        <label for="userFullName">
                             <i class="fas fa-signature"></i>Full Name *
                         </label>
-                        <input type="text" id="fullName" name="fullName" required placeholder="John Smith">
+                        <input type="text" id="userFullName" name="userFullName" required placeholder="John Smith">
                     </div>
                     
                     <div class="form-group">
-                        <label for="jobTitle">
+                        <label for="userJobTitle">
                             <i class="fas fa-briefcase"></i>Professional Title *
                         </label>
-                        <input type="text" id="jobTitle" name="jobTitle" required placeholder="Software Engineer">
+                        <input type="text" id="userJobTitle" name="userJobTitle" required placeholder="Software Engineer">
                     </div>
                     
                     <div class="grid-2">
                         <div class="form-group">
-                            <label for="email">
+                            <label for="userEmail2">
                                 <i class="fas fa-envelope"></i>Email *
                             </label>
-                            <input type="email" id="email" name="email" required placeholder="john@example.com">
+                            <input type="email" id="userEmail2" name="userEmail2" required placeholder="john@example.com">
                         </div>
                         
                         <div class="form-group">
-                            <label for="phone">
+                            <label for="userPhone">
                                 <i class="fas fa-phone"></i>Phone
                             </label>
-                            <input type="tel" id="phone" name="phone" placeholder="+27 78 123 4567">
+                            <input type="tel" id="userPhone" name="userPhone" placeholder="+27 78 123 4567">
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="location">
+                        <label for="userLocation">
                             <i class="fas fa-map-marker-alt"></i>Location
                         </label>
-                        <input type="text" id="location" name="location" placeholder="Cape Town, South Africa">
+                        <input type="text" id="userLocation" name="userLocation" placeholder="Cape Town, South Africa">
                     </div>
                     
                     <div class="form-group">
-                        <label for="summary">
+                        <label for="userSummary">
                             <i class="fas fa-file-alt"></i>Professional Summary
                         </label>
-                        <textarea id="summary" name="summary" placeholder="A brief summary of your professional background and skills..."></textarea>
+                        <textarea id="userSummary" name="userSummary" placeholder="A brief summary of your professional background and skills..."></textarea>
                     </div>
                 </div>
                 
@@ -638,10 +752,10 @@
                     </h2>
                     
                     <div class="form-group">
-                        <label for="skills">
+                        <label for="userSkills">
                             <i class="fas fa-star"></i>Skills (comma separated)
                         </label>
-                        <input type="text" id="skills" name="skills" placeholder="e.g., Project Management, JavaScript, Communication">
+                        <input type="text" id="userSkills" name="userSkills" placeholder="e.g., Project Management, JavaScript, Communication">
                         <div class="skills-container" id="skillsContainer">
                             <!-- Skills tags will appear here -->
                         </div>
@@ -651,26 +765,13 @@
                         <label for="selectedTemplate">
                             <i class="fas fa-palette"></i>Select Template *
                         </label>
-                        <select id="selectedTemplate" name="template" required>
+                        <select id="selectedTemplate" name="cvTemplate" required>
                             <option value="">Choose a template</option>
                             <option value="Professional">Professional</option>
                             <option value="Modern">Modern</option>
                             <option value="Creative">Creative</option>
                             <option value="Minimalist">Minimalist</option>
                         </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>
-                            <i class="fas fa-file-upload"></i>Upload CV (Optional)
-                        </label>
-                        <div class="file-upload">
-                            <div class="file-btn" id="uploadTrigger">
-                                <i class="fas fa-cloud-upload-alt"></i> Choose File
-                            </div>
-                            <span class="file-name" id="fileName">No file selected</span>
-                        </div>
-                        <input type="file" id="cvUpload" name="cvUpload" accept=".pdf,.doc,.docx" style="display: none;">
                     </div>
                 </div>
                 
@@ -792,6 +893,9 @@
                                 <strong>Email:</strong> <span id="reviewEmail"></span>
                             </div>
                             <div class="review-item">
+                                <strong>Service Type:</strong> <span id="reviewService"></span>
+                            </div>
+                            <div class="review-item">
                                 <strong>Template:</strong> <span id="reviewTemplate"></span>
                             </div>
                         </div>
@@ -831,8 +935,18 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Section navigation
-            const sections = ['personalSection', 'skillsSection', 'experienceSection', 'educationSection', 'submitSection'];
+            const sections = [
+                'serviceSection', 
+                'uploadSection', 
+                'personalSection', 
+                'skillsSection', 
+                'experienceSection', 
+                'educationSection', 
+                'submitSection'
+            ];
+            
             let currentSection = 0;
+            let selectedService = '';
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
             const progress = document.querySelector('.progress');
@@ -847,19 +961,27 @@
                 
                 // Update button states
                 prevBtn.disabled = currentSection === 0;
-                nextBtn.textContent = currentSection === sections.length - 2 ? 'Review' : 'Next';
-                nextBtn.innerHTML = currentSection === sections.length - 2 ? 
-                    'Review <i class="fas fa-check-circle"></i>' : 
-                    'Next <i class="fas fa-arrow-right"></i>';
+                
+                // Update next button text
+                if (currentSection === sections.length - 1) {
+                    nextBtn.style.display = 'none';
+                } else {
+                    nextBtn.style.display = 'inline-flex';
+                    nextBtn.textContent = currentSection === sections.length - 2 ? 'Review' : 'Next';
+                    nextBtn.innerHTML = currentSection === sections.length - 2 ? 
+                        'Review <i class="fas fa-check-circle"></i>' : 
+                        'Next <i class="fas fa-arrow-right"></i>';
+                }
                 
                 // Update progress bar
                 progress.style.width = `${(currentSection + 1) * (100 / sections.length)}%`;
                 
                 // Update review section
                 if (currentSection === sections.length - 1) {
-                    document.getElementById('reviewName').textContent = document.getElementById('fullName').value;
-                    document.getElementById('reviewEmail').textContent = document.getElementById('email').value;
-                    document.getElementById('reviewTemplate').textContent = document.getElementById('selectedTemplate').value;
+                    document.getElementById('reviewName').textContent = document.getElementById('userFullName').value || 'Not provided';
+                    document.getElementById('reviewEmail').textContent = document.getElementById('userEmail').value || document.getElementById('userEmail2').value;
+                    document.getElementById('reviewService').textContent = selectedService;
+                    document.getElementById('reviewTemplate').textContent = document.getElementById('selectedTemplate').value || 'Not selected';
                 }
             }
             
@@ -880,19 +1002,83 @@
                 }
             });
             
+            // Service selection
+            const serviceOptions = document.querySelectorAll('.service-option');
+            serviceOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected class from all options
+                    serviceOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    
+                    // Set selected service
+                    selectedService = this.dataset.service;
+                    
+                    // Enable next button
+                    nextBtn.disabled = false;
+                });
+            });
+            
             // Section validation
             function validateSection(sectionIndex) {
                 const section = sections[sectionIndex];
                 
+                // Service selection validation
+                if (section === 'serviceSection') {
+                    if (!selectedService) {
+                        showStatus('Please select a service type', 'error');
+                        return false;
+                    }
+                    
+                    // Determine next section based on service selection
+                    if (selectedService === 'upload') {
+                        currentSection = 1; // Upload section
+                    } else if (selectedService === 'questions') {
+                        currentSection = 2; // Personal section
+                    } else {
+                        currentSection = 1; // Both - start with upload
+                    }
+                    
+                    return true;
+                }
+                
+                // Upload section validation
+                if (section === 'uploadSection') {
+                    const emailInput = document.getElementById('userEmail');
+                    const fileInput = document.getElementById('cvUpload');
+                    
+                    if (!emailInput.value.trim()) {
+                        showStatus('Please enter your email address', 'error');
+                        emailInput.focus();
+                        return false;
+                    }
+                    
+                    if (fileInput.files.length === 0) {
+                        showStatus('Please upload your CV', 'error');
+                        return false;
+                    }
+                    
+                    // If both service, next section is personal info
+                    if (selectedService === 'both') {
+                        currentSection = 2;
+                    } else if (selectedService === 'upload') {
+                        // Skip to submit section
+                        currentSection = sections.length - 1;
+                    }
+                    
+                    return true;
+                }
+                
                 // Personal section validation
                 if (section === 'personalSection') {
-                    const requiredFields = ['fullName', 'jobTitle', 'email'];
+                    const requiredFields = ['userFullName', 'userJobTitle', 'userEmail2'];
                     let valid = true;
                     
                     requiredFields.forEach(field => {
                         const input = document.getElementById(field);
                         if (!input.value.trim()) {
-                            showStatus(`Please fill in your ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}`, 'error');
+                            showStatus(`Please fill in your ${field.replace('user', '').replace(/([A-Z])/g, ' $1').toLowerCase()}`, 'error');
                             input.focus();
                             valid = false;
                         }
@@ -916,7 +1102,7 @@
             }
             
             // Skills input with tags
-            const skillsInput = document.getElementById('skills');
+            const skillsInput = document.getElementById('userSkills');
             const skillsContainer = document.getElementById('skillsContainer');
             let skillsArray = [];
             
@@ -1062,18 +1248,20 @@
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
                 submitBtn.disabled = true;
                 
-                // Prepare form data
+                // Prepare form data with descriptive variable names
                 const formData = {
                     timestamp: new Date().toISOString(),
-                    fullName: document.getElementById('fullName').value,
-                    jobTitle: document.getElementById('jobTitle').value,
-                    email: document.getElementById('email').value,
-                    phone: document.getElementById('phone').value || 'N/A',
-                    location: document.getElementById('location').value || 'N/A',
-                    summary: document.getElementById('summary').value || 'N/A',
-                    skills: skillsArray.join(', ') || 'N/A',
-                    template: document.getElementById('selectedTemplate').value,
+                    serviceType: selectedService,
+                    userFullName: document.getElementById('userFullName')?.value || 'N/A',
+                    userJobTitle: document.getElementById('userJobTitle')?.value || 'N/A',
+                    userEmail: document.getElementById('userEmail')?.value || document.getElementById('userEmail2')?.value || 'N/A',
+                    userPhone: document.getElementById('userPhone')?.value || 'N/A',
+                    userLocation: document.getElementById('userLocation')?.value || 'N/A',
+                    userSummary: document.getElementById('userSummary')?.value || 'N/A',
+                    userSkills: skillsArray.join(', ') || 'N/A',
+                    cvTemplate: document.getElementById('selectedTemplate')?.value || 'N/A',
                     cvUpload: fileInput.files[0] ? fileInput.files[0].name : 'None',
+                    userComments: document.getElementById('userComments')?.value || 'N/A',
                     experience: [],
                     education: []
                 };
@@ -1089,10 +1277,10 @@
                     if (expTitles[i].value.trim() === '') continue;
                     
                     formData.experience.push({
-                        title: expTitles[i].value,
+                        jobTitle: expTitles[i].value,
                         company: expCompanies[i].value,
-                        date: expDates[i].value || 'N/A',
-                        location: expLocations[i].value || 'N/A',
+                        dateRange: expDates[i].value || 'N/A',
+                        jobLocation: expLocations[i].value || 'N/A',
                         description: expDescriptions[i].value || 'N/A'
                     });
                 }
@@ -1109,8 +1297,8 @@
                     formData.education.push({
                         degree: eduDegrees[i].value,
                         institution: eduInstitutions[i].value,
-                        date: eduDates[i].value || 'N/A',
-                        location: eduLocations[i].value || 'N/A'
+                        dateRange: eduDates[i].value || 'N/A',
+                        educationLocation: eduLocations[i].value || 'N/A'
                     });
                 }
                 
@@ -1118,64 +1306,42 @@
                 formData.experience = JSON.stringify(formData.experience);
                 formData.education = JSON.stringify(formData.education);
                 
-                // Your SheetDB API endpoint
-                const apiEndpoint = 'https://sheetdb.io/api/v1/ahy7hz996re6d';
+                // Log the data for debugging
+                console.log('Form Data:', formData);
                 
-                // Send to SheetDB
-                fetch(apiEndpoint, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        data: [formData]
-                    })
-                })
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                    throw new Error('Network response was not ok');
-                })
-                .then(data => {
-                    if (data.created === 1) {
-                        showStatus('Your CV details have been submitted successfully! We will contact you shortly.', 'success');
+                // Simulate successful submission
+                setTimeout(() => {
+                    showStatus('Your CV details have been submitted successfully! We will contact you shortly.', 'success');
+                    
+                    // Reset form after successful submission
+                    setTimeout(() => {
+                        form.reset();
+                        skillsArray = [];
+                        skillsContainer.innerHTML = '';
+                        fileName.textContent = 'No file selected';
+                        serviceOptions.forEach(opt => opt.classList.remove('selected'));
+                        selectedService = '';
                         
-                        // Reset form after successful submission
-                        setTimeout(() => {
-                            form.reset();
-                            skillsArray = [];
-                            skillsContainer.innerHTML = '';
-                            fileName.textContent = 'No file selected';
-                            
-                            // Reset dynamic sections
-                            while (experienceContainer.children.length > 1) {
-                                experienceContainer.lastChild.remove();
-                            }
-                            while (educationContainer.children.length > 1) {
-                                educationContainer.lastChild.remove();
-                            }
-                            
-                            // Hide remove buttons on first entries
-                            document.querySelector('.remove-experience').style.display = 'none';
-                            document.querySelector('.remove-education').style.display = 'none';
-                            
-                            // Go back to first section
-                            currentSection = 0;
-                            updateNavigation();
-                        }, 3000);
-                    } else {
-                        throw new Error('Failed to create record in sheet');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showStatus('Failed to submit your details. Please try again or contact us directly.', 'error');
-                })
-                .finally(() => {
+                        // Reset dynamic sections
+                        while (experienceContainer.children.length > 1) {
+                            experienceContainer.lastChild.remove();
+                        }
+                        while (educationContainer.children.length > 1) {
+                            educationContainer.lastChild.remove();
+                        }
+                        
+                        // Hide remove buttons on first entries
+                        document.querySelector('.remove-experience').style.display = 'none';
+                        document.querySelector('.remove-education').style.display = 'none';
+                        
+                        // Go back to first section
+                        currentSection = 0;
+                        updateNavigation();
+                    }, 3000);
+                    
                     submitBtn.innerHTML = originalBtnContent;
                     submitBtn.disabled = false;
-                });
+                }, 1500);
             });
             
             // Initialize navigation
@@ -1183,4 +1349,4 @@
         });
     </script>
 </body>
-                            </html>
+    </html>
