@@ -514,6 +514,32 @@
             color: var(--medium-gray);
         }
         
+        /* New skills section styles */
+        .skill-entry {
+            background: rgba(90, 167, 158, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--accent-teal);
+        }
+        
+        .skill-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 15px;
+        }
+        
+        .skill-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+        
+        .skill-actions button {
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+        
         /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -532,7 +558,7 @@
         }
         
         @media (max-width: 768px) {
-            .grid-2, .grid-3 {
+            .grid-2, .grid-3, .skill-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
@@ -751,17 +777,37 @@
                         Skills & Expertise
                     </h2>
                     
-                    <div class="form-group">
-                        <label for="userSkills">
-                            <i class="fas fa-star"></i>Skills (comma separated)
-                        </label>
-                        <input type="text" id="userSkills" name="userSkills" placeholder="e.g., Project Management, JavaScript, Communication">
-                        <div class="skills-container" id="skillsContainer">
-                            <!-- Skills tags will appear here -->
+                    <div id="skills-container">
+                        <div class="skill-entry">
+                            <div class="section-header">
+                                <h3 class="section-title-sm">Skill #1</h3>
+                            </div>
+                            
+                            <div class="skill-grid">
+                                <div class="form-group">
+                                    <label>Skill Name *</label>
+                                    <input type="text" name="skillName[]" required placeholder="Project Management">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Description *</label>
+                                    <textarea name="skillDescription[]" required placeholder="Detail your proficiency level and experience..."></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-actions">
+                                <button type="button" class="btn btn-danger remove-skill" style="display: none;">
+                                    <i class="fas fa-trash"></i> Remove Skill
+                                </button>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="form-group">
+                    <button type="button" id="addSkill" class="btn btn-outline">
+                        <i class="fas fa-plus"></i> Add Another Skill
+                    </button>
+                    
+                    <div class="form-group" style="margin-top: 30px;">
                         <label for="selectedTemplate">
                             <i class="fas fa-palette"></i>Select Template *
                         </label>
@@ -1117,54 +1163,22 @@
                         template.focus();
                         return false;
                     }
+                    
+                    // Validate skill entries
+                    const skillNames = document.querySelectorAll('input[name="skillName[]"]');
+                    const skillDescriptions = document.querySelectorAll('textarea[name="skillDescription[]"]');
+                    
+                    for (let i = 0; i < skillNames.length; i++) {
+                        if (!skillNames[i].value.trim() || !skillDescriptions[i].value.trim()) {
+                            showStatus('Please complete all skill fields', 'error');
+                            return false;
+                        }
+                    }
+                    
                     return true;
                 }
                 
                 return true;
-            }
-            
-            // Skills input with tags
-            const skillsInput = document.getElementById('userSkills');
-            const skillsContainer = document.getElementById('skillsContainer');
-            let skillsArray = [];
-            
-            skillsInput.addEventListener('keydown', function(e) {
-                if (e.key === ',' || e.key === 'Enter') {
-                    e.preventDefault();
-                    const skill = this.value.trim().replace(',', '');
-                    if (skill) {
-                        addSkillTag(skill);
-                        this.value = '';
-                    }
-                }
-            });
-            
-            function addSkillTag(skill) {
-                if (skillsArray.length >= 15) {
-                    showStatus('Maximum of 15 skills allowed', 'error');
-                    return;
-                }
-                
-                if (!skillsArray.includes(skill)) {
-                    skillsArray.push(skill);
-                    
-                    const tag = document.createElement('div');
-                    tag.className = 'skill-tag';
-                    tag.innerHTML = `
-                        ${skill}
-                        <i class="fas fa-times"></i>
-                    `;
-                    
-                    tag.querySelector('i').addEventListener('click', function() {
-                        const index = skillsArray.indexOf(skill);
-                        if (index > -1) {
-                            skillsArray.splice(index, 1);
-                        }
-                        tag.remove();
-                    });
-                    
-                    skillsContainer.appendChild(tag);
-                }
             }
             
             // File upload
@@ -1222,6 +1236,25 @@
                 educationContainer.appendChild(newEntry);
             });
             
+            // Skills section management
+            const skillsContainer = document.getElementById('skills-container');
+            const addSkillBtn = document.getElementById('addSkill');
+            
+            addSkillBtn.addEventListener('click', function() {
+                const newEntry = skillsContainer.firstElementChild.cloneNode(true);
+                const entryCount = skillsContainer.children.length + 1;
+                
+                newEntry.querySelector('.section-title-sm').textContent = `Skill #${entryCount}`;
+                newEntry.querySelector('.remove-skill').style.display = 'block';
+                
+                // Clear input values
+                newEntry.querySelectorAll('input, textarea').forEach(input => {
+                    input.value = '';
+                });
+                
+                skillsContainer.appendChild(newEntry);
+            });
+            
             // Remove buttons
             document.addEventListener('click', function(e) {
                 if (e.target.classList.contains('remove-experience')) {
@@ -1240,6 +1273,16 @@
                         // Renumber remaining entries
                         document.querySelectorAll('.education-entry').forEach((entry, index) => {
                             entry.querySelector('.section-title-sm').textContent = `Education #${index + 1}`;
+                        });
+                    }
+                }
+                
+                if (e.target.classList.contains('remove-skill')) {
+                    if (skillsContainer.children.length > 1) {
+                        e.target.closest('.skill-entry').remove();
+                        // Renumber remaining entries
+                        document.querySelectorAll('.skill-entry').forEach((entry, index) => {
+                            entry.querySelector('.section-title-sm').textContent = `Skill #${index + 1}`;
                         });
                     }
                 }
@@ -1280,13 +1323,31 @@
                     "Phone": document.getElementById('userPhone')?.value || 'N/A',
                     "Location": document.getElementById('userLocation')?.value || 'N/A',
                     "Professional Summary": document.getElementById('userSummary')?.value || 'N/A',
-                    "Skills": skillsArray.join(', ') || 'N/A',
+                    "Skills": getSkillsData(),
                     "CV Template": document.getElementById('selectedTemplate')?.value || 'N/A',
                     "Uploaded CV File": fileInput.files[0] ? fileInput.files[0].name : 'None',
                     "Special Requests": document.getElementById('userComments')?.value || 'N/A',
                     "Experience": getExperienceData(),
                     "Education": getEducationData()
                 };
+                
+                // Helper function to get skills data
+                function getSkillsData() {
+                    const skills = [];
+                    const skillNames = document.querySelectorAll('input[name="skillName[]"]');
+                    const skillDescriptions = document.querySelectorAll('textarea[name="skillDescription[]"]');
+                    
+                    for (let i = 0; i < skillNames.length; i++) {
+                        const name = skillNames[i].value.trim();
+                        const description = skillDescriptions[i].value.trim();
+                        
+                        if (name && description) {
+                            skills.push(`${name}: ${description}`);
+                        }
+                    }
+                    
+                    return skills.join(' | ') || 'N/A';
+                }
                 
                 // Helper function to get experience data
                 function getExperienceData() {
@@ -1346,8 +1407,6 @@
                         // Reset form
                         setTimeout(() => {
                             form.reset();
-                            skillsArray = [];
-                            skillsContainer.innerHTML = '';
                             fileName.textContent = 'No file selected';
                             serviceOptions.forEach(opt => opt.classList.remove('selected'));
                             selectedService = '';
@@ -1359,10 +1418,14 @@
                             while (educationContainer.children.length > 1) {
                                 educationContainer.lastChild.remove();
                             }
+                            while (skillsContainer.children.length > 1) {
+                                skillsContainer.lastChild.remove();
+                            }
                             
                             // Hide remove buttons
                             document.querySelector('.remove-experience').style.display = 'none';
                             document.querySelector('.remove-education').style.display = 'none';
+                            document.querySelector('.remove-skill').style.display = 'none';
                             
                             // Return to first section
                             currentSection = 0;
@@ -1384,4 +1447,4 @@
         });
     </script>
 </body>
-    </html>
+                </html>
