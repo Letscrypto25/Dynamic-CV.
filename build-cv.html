@@ -540,6 +540,70 @@
             font-size: 0.9rem;
         }
         
+        /* Enhanced review section */
+        .review-container {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eaeaea;
+        }
+        
+        .review-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .review-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .review-title {
+            font-size: 1.4rem;
+            color: var(--accent-teal);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .review-item {
+            margin-bottom: 12px;
+            display: flex;
+        }
+        
+        .review-label {
+            font-weight: 600;
+            min-width: 150px;
+            color: var(--dark-gray);
+        }
+        
+        .review-value {
+            flex: 1;
+            color: var(--medium-gray);
+        }
+        
+        .review-subsection {
+            margin-top: 15px;
+            padding: 15px;
+            background: var(--light-bg);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-teal);
+        }
+        
+        .review-subtitle {
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
         /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -583,6 +647,15 @@
                 width: 50px;
                 height: 50px;
                 font-size: 1.5rem;
+            }
+            
+            .review-item {
+                flex-direction: column;
+            }
+            
+            .review-label {
+                min-width: auto;
+                margin-bottom: 5px;
             }
         }
         
@@ -931,18 +1004,74 @@
                             <span class="highlight">14-Day Free Amendment Service</span> if you need any changes.
                         </p>
                         
-                        <div class="review-summary">
-                            <div class="review-item">
-                                <strong>Full Name:</strong> <span id="reviewName"></span>
+                        <div class="review-container">
+                            <div class="review-section">
+                                <h3 class="review-title"><i class="fas fa-user"></i> Personal Information</h3>
+                                <div class="review-item">
+                                    <div class="review-label">Full Name:</div>
+                                    <div class="review-value" id="reviewName">Not provided</div>
+                                </div>
+                                <div class="review-item">
+                                    <div class="review-label">Email:</div>
+                                    <div class="review-value" id="reviewEmail">Not provided</div>
+                                </div>
+                                <div class="review-item">
+                                    <div class="review-label">Phone:</div>
+                                    <div class="review-value" id="reviewPhone">Not provided</div>
+                                </div>
+                                <div class="review-item">
+                                    <div class="review-label">Location:</div>
+                                    <div class="review-value" id="reviewLocation">Not provided</div>
+                                </div>
+                                <div class="review-item">
+                                    <div class="review-label">Job Title:</div>
+                                    <div class="review-value" id="reviewJobTitle">Not provided</div>
+                                </div>
+                                <div class="review-item">
+                                    <div class="review-label">Professional Summary:</div>
+                                    <div class="review-value" id="reviewSummary">Not provided</div>
+                                </div>
                             </div>
-                            <div class="review-item">
-                                <strong>Email:</strong> <span id="reviewEmail"></span>
+                            
+                            <div class="review-section">
+                                <h3 class="review-title"><i class="fas fa-cogs"></i> Service Details</h3>
+                                <div class="review-item">
+                                    <div class="review-label">Service Type:</div>
+                                    <div class="review-value" id="reviewService">Not selected</div>
+                                </div>
+                                <div class="review-item">
+                                    <div class="review-label">CV Template:</div>
+                                    <div class="review-value" id="reviewTemplate">Not selected</div>
+                                </div>
+                                <div class="review-item">
+                                    <div class="review-label">Special Requests:</div>
+                                    <div class="review-value" id="reviewComments">None</div>
+                                </div>
+                                <div class="review-item">
+                                    <div class="review-label">Uploaded File:</div>
+                                    <div class="review-value" id="reviewFile">None</div>
+                                </div>
                             </div>
-                            <div class="review-item">
-                                <strong>Service Type:</strong> <span id="reviewService"></span>
+                            
+                            <div class="review-section">
+                                <h3 class="review-title"><i class="fas fa-tools"></i> Skills & Expertise</h3>
+                                <div id="reviewSkills">
+                                    <div class="review-value">No skills added</div>
+                                </div>
                             </div>
-                            <div class="review-item">
-                                <strong>Template:</strong> <span id="reviewTemplate"></span>
+                            
+                            <div class="review-section">
+                                <h3 class="review-title"><i class="fas fa-briefcase"></i> Work Experience</h3>
+                                <div id="reviewExperience">
+                                    <div class="review-value">No experience added</div>
+                                </div>
+                            </div>
+                            
+                            <div class="review-section">
+                                <h3 class="review-title"><i class="fas fa-graduation-cap"></i> Education</h3>
+                                <div id="reviewEducation">
+                                    <div class="review-value">No education added</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1011,6 +1140,7 @@
                 // Update next button text
                 if (currentSection === sections.length - 1) {
                     nextBtn.style.display = 'none';
+                    updateReviewSection();
                 } else {
                     nextBtn.style.display = 'inline-flex';
                     nextBtn.textContent = currentSection === sections.length - 2 ? 'Review' : 'Next';
@@ -1021,14 +1151,6 @@
                 
                 // Update progress bar
                 progress.style.width = `${(currentSection + 1) * (100 / sections.length)}%`;
-                
-                // Update review section
-                if (currentSection === sections.length - 1) {
-                    document.getElementById('reviewName').textContent = document.getElementById('userFullName')?.value || 'Not provided';
-                    document.getElementById('reviewEmail').textContent = document.getElementById('userEmail')?.value || document.getElementById('userEmail2')?.value;
-                    document.getElementById('reviewService').textContent = selectedService;
-                    document.getElementById('reviewTemplate').textContent = document.getElementById('selectedTemplate')?.value || 'Not selected';
-                }
             }
             
             // Navigation button handlers
@@ -1301,6 +1423,116 @@
                 }, 5000);
             }
             
+            // Update review section
+            function updateReviewSection() {
+                // Personal info
+                document.getElementById('reviewName').textContent = document.getElementById('userFullName')?.value || 'Not provided';
+                document.getElementById('reviewEmail').textContent = document.getElementById('userEmail')?.value || document.getElementById('userEmail2')?.value || 'Not provided';
+                document.getElementById('reviewPhone').textContent = document.getElementById('userPhone')?.value || 'Not provided';
+                document.getElementById('reviewLocation').textContent = document.getElementById('userLocation')?.value || 'Not provided';
+                document.getElementById('reviewJobTitle').textContent = document.getElementById('userJobTitle')?.value || 'Not provided';
+                document.getElementById('reviewSummary').textContent = document.getElementById('userSummary')?.value || 'Not provided';
+                
+                // Service details
+                document.getElementById('reviewService').textContent = selectedService || 'Not selected';
+                document.getElementById('reviewTemplate').textContent = document.getElementById('selectedTemplate')?.value || 'Not selected';
+                document.getElementById('reviewComments').textContent = document.getElementById('userComments')?.value || 'None';
+                document.getElementById('reviewFile').textContent = fileInput.files[0]?.name || 'None';
+                
+                // Skills
+                const skillsContainer = document.getElementById('reviewSkills');
+                skillsContainer.innerHTML = '';
+                
+                const skillNames = document.querySelectorAll('input[name="skillName[]"]');
+                const skillDescriptions = document.querySelectorAll('textarea[name="skillDescription[]"]');
+                
+                if (skillNames.length === 0) {
+                    skillsContainer.innerHTML = '<div class="review-value">No skills added</div>';
+                } else {
+                    for (let i = 0; i < skillNames.length; i++) {
+                        if (skillNames[i].value.trim() || skillDescriptions[i].value.trim()) {
+                            const skillDiv = document.createElement('div');
+                            skillDiv.className = 'review-subsection';
+                            skillDiv.innerHTML = `
+                                <div class="review-subtitle"><i class="fas fa-star"></i> ${skillNames[i].value || 'Untitled Skill'}</div>
+                                <div class="review-value">${skillDescriptions[i].value || 'No description provided'}</div>
+                            `;
+                            skillsContainer.appendChild(skillDiv);
+                        }
+                    }
+                }
+                
+                // Experience
+                const expContainer = document.getElementById('reviewExperience');
+                expContainer.innerHTML = '';
+                
+                const expEntries = document.querySelectorAll('.experience-entry');
+                if (expEntries.length === 0) {
+                    expContainer.innerHTML = '<div class="review-value">No experience added</div>';
+                } else {
+                    expEntries.forEach(entry => {
+                        const title = entry.querySelector('input[name="expTitle[]"]').value.trim();
+                        if (title) {
+                            const expDiv = document.createElement('div');
+                            expDiv.className = 'review-subsection';
+                            expDiv.innerHTML = `
+                                <div class="review-subtitle"><i class="fas fa-briefcase"></i> ${title}</div>
+                                <div class="review-item">
+                                    <div class="review-label">Company:</div>
+                                    <div class="review-value">${entry.querySelector('input[name="expCompany[]"]').value || 'Not specified'}</div>
+                                </div>
+                                <div class="review-item">
+                                    <div class="review-label">Period:</div>
+                                    <div class="review-value">${entry.querySelector('input[name="expDate[]"]').value || 'Not specified'}</div>
+                                </div>
+                                <div class="review-item">
+                                    <div class="review-label">Location:</div>
+                                    <div class="review-value">${entry.querySelector('input[name="expLocation[]"]').value || 'Not specified'}</div>
+                                </div>
+                                <div class="review-item">
+                                    <div class="review-label">Description:</div>
+                                    <div class="review-value">${entry.querySelector('textarea[name="expDescription[]"]').value || 'Not specified'}</div>
+                                </div>
+                            `;
+                            expContainer.appendChild(expDiv);
+                        }
+                    });
+                }
+                
+                // Education
+                const eduContainer = document.getElementById('reviewEducation');
+                eduContainer.innerHTML = '';
+                
+                const eduEntries = document.querySelectorAll('.education-entry');
+                if (eduEntries.length === 0) {
+                    eduContainer.innerHTML = '<div class="review-value">No education added</div>';
+                } else {
+                    eduEntries.forEach(entry => {
+                        const degree = entry.querySelector('input[name="eduDegree[]"]').value.trim();
+                        if (degree) {
+                            const eduDiv = document.createElement('div');
+                            eduDiv.className = 'review-subsection';
+                            eduDiv.innerHTML = `
+                                <div class="review-subtitle"><i class="fas fa-graduation-cap"></i> ${degree}</div>
+                                <div class="review-item">
+                                    <div class="review-label">Institution:</div>
+                                    <div class="review-value">${entry.querySelector('input[name="eduInstitution[]"]').value || 'Not specified'}</div>
+                                </div>
+                                <div class="review-item">
+                                    <div class="review-label">Period:</div>
+                                    <div class="review-value">${entry.querySelector('input[name="eduDate[]"]').value || 'Not specified'}</div>
+                                </div>
+                                <div class="review-item">
+                                    <div class="review-label">Location:</div>
+                                    <div class="review-value">${entry.querySelector('input[name="eduLocation[]"]').value || 'Not specified'}</div>
+                                </div>
+                            `;
+                            eduContainer.appendChild(eduDiv);
+                        }
+                    });
+                }
+            }
+            
             // Form submission to SheetDB.io
             const form = document.getElementById('cvForm');
             
@@ -1447,4 +1679,4 @@
         });
     </script>
 </body>
-                </html>
+    </html>
