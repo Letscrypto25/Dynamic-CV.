@@ -978,28 +978,68 @@
                 
                 // Update review section
                 if (currentSection === sections.length - 1) {
-                    document.getElementById('reviewName').textContent = document.getElementById('userFullName').value || 'Not provided';
-                    document.getElementById('reviewEmail').textContent = document.getElementById('userEmail').value || document.getElementById('userEmail2').value;
+                    document.getElementById('reviewName').textContent = document.getElementById('userFullName')?.value || 'Not provided';
+                    document.getElementById('reviewEmail').textContent = document.getElementById('userEmail')?.value || document.getElementById('userEmail2')?.value;
                     document.getElementById('reviewService').textContent = selectedService;
-                    document.getElementById('reviewTemplate').textContent = document.getElementById('selectedTemplate').value || 'Not selected';
+                    document.getElementById('reviewTemplate').textContent = document.getElementById('selectedTemplate')?.value || 'Not selected';
                 }
             }
             
             // Navigation button handlers
             nextBtn.addEventListener('click', function() {
                 if (validateSection(currentSection)) {
-                    if (currentSection < sections.length - 1) {
+                    // Determine next section based on service selection
+                    if (currentSection === 0) {
+                        // Service section - determine next based on service
+                        if (selectedService === 'upload') {
+                            currentSection = 1; // Go to upload
+                        } else if (selectedService === 'questions') {
+                            currentSection = 2; // Skip upload, go to personal
+                        } else if (selectedService === 'both') {
+                            currentSection = 1; // Go to upload
+                        }
+                    } else if (currentSection === 1) {
+                        // Upload section - determine next based on service
+                        if (selectedService === 'upload') {
+                            currentSection = sections.length - 1; // Skip to submit
+                        } else if (selectedService === 'both') {
+                            currentSection = 2; // Go to personal
+                        } else {
+                            currentSection = 2; // Default to personal
+                        }
+                    } else {
+                        // For all other sections, just go to next
                         currentSection++;
-                        updateNavigation();
                     }
+                    updateNavigation();
                 }
             });
             
             prevBtn.addEventListener('click', function() {
-                if (currentSection > 0) {
+                // Determine previous section based on service selection
+                if (currentSection === sections.length - 1) {
+                    // Submit section - determine previous based on service
+                    if (selectedService === 'upload') {
+                        currentSection = 1; // Go back to upload
+                    } else if (selectedService === 'questions') {
+                        currentSection = sections.length - 2; // Go to last question section
+                    } else if (selectedService === 'both') {
+                        currentSection = sections.length - 2; // Go to last question section
+                    }
+                } else if (currentSection === 2) {
+                    // Personal section - determine previous based on service
+                    if (selectedService === 'questions') {
+                        currentSection = 0; // Go back to service
+                    } else if (selectedService === 'both') {
+                        currentSection = 1; // Go back to upload
+                    } else {
+                        currentSection = 1; // Default to upload
+                    }
+                } else {
+                    // For all other sections, just go back one
                     currentSection--;
-                    updateNavigation();
                 }
+                updateNavigation();
             });
             
             // Service selection
@@ -1030,16 +1070,6 @@
                         showStatus('Please select a service type', 'error');
                         return false;
                     }
-                    
-                    // Determine next section based on service selection
-                    if (selectedService === 'upload') {
-                        currentSection = 1; // Upload section
-                    } else if (selectedService === 'questions') {
-                        currentSection = 2; // Personal section
-                    } else {
-                        currentSection = 1; // Both - start with upload
-                    }
-                    
                     return true;
                 }
                 
@@ -1057,14 +1087,6 @@
                     if (fileInput.files.length === 0) {
                         showStatus('Please upload your CV', 'error');
                         return false;
-                    }
-                    
-                    // If both service, next section is personal info
-                    if (selectedService === 'both') {
-                        currentSection = 2;
-                    } else if (selectedService === 'upload') {
-                        // Skip to submit section
-                        currentSection = sections.length - 1;
                     }
                     
                     return true;
