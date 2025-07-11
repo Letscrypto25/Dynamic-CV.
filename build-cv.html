@@ -1563,6 +1563,8 @@
                     "Education": getEducationData()
                 };
                 
+                console.log("Form data to submit:", formData);
+                
                 // Helper function to get skills data
                 function getSkillsData() {
                     const skills = [];
@@ -1629,10 +1631,11 @@
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ data: [formData] })
+                        body: JSON.stringify({ data: formData })
                     });
                     
                     const result = await response.json();
+                    console.log("Submission result:", result);
                     
                     if (result.created > 0) {
                         showStatus('Your CV details have been submitted successfully! We will contact you shortly.', 'success');
@@ -1664,9 +1667,10 @@
                             updateNavigation();
                         }, 3000);
                     } else {
-                        showStatus('Submission failed. Please try again.', 'error');
+                        showStatus(`Submission failed: ${result.error || 'Unknown error'}`, 'error');
                     }
                 } catch (error) {
+                    console.error("Submission error:", error);
                     showStatus(`Network Error: ${error.message}`, 'error');
                 } finally {
                     submitBtn.innerHTML = originalBtnContent;
